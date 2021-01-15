@@ -38,7 +38,7 @@ namespace Ikarus\SPS\Dev\UI;
 use Skyline\HTML\Form\Control\ControlInterface;
 use Skyline\HTML\Form\FormElement;
 
-class PlainParameterConstructor
+class PlainParameterConstructor implements PluginConstructionInterface
 {
 	private $fieldNames = [];
 	private $controls = [];
