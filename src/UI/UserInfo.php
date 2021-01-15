@@ -38,7 +38,7 @@ namespace Ikarus\SPS\Dev\UI;
 class UserInfo implements UserInfoInterface
 {
 	/** @var string */
-	private $name;
+	private $name, $group;
 	/** @var string|null */
 	private $description;
 
@@ -68,6 +68,8 @@ class UserInfo implements UserInfoInterface
 				$this->commands[] = $item;
 			elseif($item instanceof Description)
 				$this->description = (string)$item;
+			elseif($item instanceof Group)
+				$this->group = (string)$item;
 			elseif($item instanceof Name)
 				$this->name = (string)$item;
 			elseif($item instanceof PluginConstructionInterface)
@@ -82,6 +84,14 @@ class UserInfo implements UserInfoInterface
 	public function getName(): string
 	{
 		return $this->name;
+	}
+
+	/**
+	 * @return string|null
+	 */
+	public function getGroup(): ?string
+	{
+		return $this->group;
 	}
 
 	/**
