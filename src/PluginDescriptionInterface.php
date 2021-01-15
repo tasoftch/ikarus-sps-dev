@@ -39,6 +39,26 @@ use Ikarus\SPS\Dev\UI\UserInfoInterface;
 
 interface PluginDescriptionInterface
 {
+	/** @var int placed as very first plugin, updated only once */
+	const PLACEMENT_INIT = 1<<0;
+
+	const PLACEMENT_CYCLE_BEGIN = 1<<1;
+
+	const PLACEMENT_BEFORE_PROCEDURES = 1<<2;
+	const PLACEMENT_AFTER_PROCEDURES = 1<<3;
+
+	const PLACEMENT_BEFORE_RELATIONS = 1<<4;
+	const PLACEMENT_AFTER_RELATIONS = 1<<5;
+
+	const PLACEMENT_CYCLE_END = 1<<6;
+
+	const PLACEMENT_END = 1<<7;
+
+
+	const OPTION_STORABLE = 1<<0;
+	const OPTION_SPAWNED = 1<<8;
+
+
 	/**
 	 * Returns the main plugin description
 	 *
@@ -51,4 +71,25 @@ interface PluginDescriptionInterface
 	 * @return string
 	 */
 	public static function getPluginName(): string;
+
+	/**
+	 * The description must decide, where to place the plugin in the cycle.
+	 *
+	 * @return int
+	 * @see PluginDescriptionInterface::PLACEMENT_* constants
+	 */
+	public function getRegistrationPlacement(): int;
+
+	/**
+	 * The plugin relevant options to respect if possible from Ikarus SPS
+	 *
+	 * @return int
+	 * @see PluginDescriptionInterface::OPTION_* constants
+	 */
+	public function getPluginOptions(): int;
+
+	/**
+	 * @return int
+	 */
+	public function getDesiredFrequency(): int;
 }
