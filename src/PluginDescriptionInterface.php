@@ -37,7 +37,7 @@ namespace Ikarus\SPS\Dev;
 
 use Ikarus\SPS\Dev\UI\UserInfoInterface;
 
-interface PluginUIDescriptionInterface
+interface PluginDescriptionInterface
 {
 	/**
 	 * Returns the main plugin description
