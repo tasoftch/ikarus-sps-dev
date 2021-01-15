@@ -51,6 +51,9 @@ class UserInfo implements UserInfoInterface
 	/** @var Value[] */
 	private $values = [];
 
+	/** @var Declaration[] */
+	private $declarations = [];
+
 	private $construction;
 
 	/**
@@ -70,6 +73,8 @@ class UserInfo implements UserInfoInterface
 				$this->description = (string)$item;
 			elseif($item instanceof Group)
 				$this->group = (string)$item;
+			elseif($item instanceof Declaration)
+				$this->declarations[] = $item;
 			elseif($item instanceof Name)
 				$this->name = (string)$item;
 			elseif($item instanceof PluginConstructionInterface)
@@ -129,5 +134,13 @@ class UserInfo implements UserInfoInterface
 	public function getPluginConstruction(): ?PluginConstructionInterface
 	{
 		return $this->construction;
+	}
+
+	/**
+	 * @return Declaration[]
+	 */
+	public function getDeclarations(): array
+	{
+		return $this->declarations;
 	}
 }

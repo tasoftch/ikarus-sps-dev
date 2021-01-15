@@ -34,46 +34,10 @@
 
 namespace Ikarus\SPS\Dev\UI;
 
-
-interface UserInfoInterface
+/**
+ * Class Declaration
+ * @package Ikarus\SPS\Dev\UI
+ */
+class Declaration extends Name
 {
-	/**
-	 * @return string
-	 */
-	public function getName(): string;
-
-	/**
-	 * @return string
-	 */
-	public function getGroup(): ?string;
-
-	/**
-	 * @return string
-	 */
-	public function getDescription(): ?string;
-
-	/**
-	 * @return Command[]
-	 */
-	public function getCommands(): array;
-
-	/**
-	 * @return Status[]
-	 */
-	public function getStatus(): array;
-
-	/**
-	 * @return Value[]
-	 */
-	public function getValues(): array;
-
-	/**
-	 * @return Declaration[]
-	 */
-	public function getDeclarations(): array;
-
-	/**
-	 * @return PluginConstructionInterface|null
-	 */
-	public function getPluginConstruction(): ?PluginConstructionInterface;
 }
