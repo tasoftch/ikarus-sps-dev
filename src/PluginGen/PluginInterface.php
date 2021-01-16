@@ -45,6 +45,13 @@ interface PluginInterface
 	public function getClass(): string;
 
 	/**
+	 * Uniquely identifiers this plugin instance inside the whole Ikarus SPS
+	 *
+	 * @return string
+	 */
+	public function getIdentifier(): string;
+
+	/**
 	 * The array may return any value to be passed to the plugin's constructor.
 	 * Any passed DynamicArgument gets resolved on runtime
 	 *
@@ -65,4 +72,11 @@ interface PluginInterface
 	 * @return string|null
 	 */
 	public function getPluginDescription(): ?string;
+
+	/**
+	 * Creates an executable php code string that will create the plugin instance
+	 *
+	 * @return string
+	 */
+	public function construct(): string;
 }

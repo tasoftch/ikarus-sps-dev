@@ -40,15 +40,21 @@ class Plugin implements PluginInterface
 	/** @var string */
 	private $_class;
 	/** @var string */
+	private $identifier;
+	/** @var string */
 	private $pluginName;
 	/** @var string|null */
 	private $pluginDescription;
 	/** @var StaticArgument[]|DynamicArgument[] */
 	private $constructor = [];
 
-	public function __construct($class, ...$args)
+	public function __construct(string $class, string $identifier, ...$args)
 	{
 		$this->_class = $class;
+		$this->identifier = $identifier;
+
+		$this->constructor[] = new StaticArgument($identifier);
+
 		foreach($args as $item) {
 			if($item instanceof Description)
 				$this->pluginDescription = (string)$item;
@@ -95,5 +101,13 @@ class Plugin implements PluginInterface
 		return sprintf("new %s(%s)", $this->getClass(), implode(",", array_map(function(ArgumentInterface $argument) {
 			return $argument->export();
 		}, $this->getConstructor())));
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getIdentifier(): string
+	{
+		return $this->identifier;
 	}
 }
