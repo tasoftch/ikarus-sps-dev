@@ -56,6 +56,10 @@ interface PluginDescriptionInterface
 
 
 	const OPTION_STORABLE = 1<<0;
+	const OPTION_EDITABLE_NAME = 1<<1;
+	const OPTION_EDITABLE_DESCRIPTION = 1<<2;
+	const OPTION_EDITABLE_CONSTRUCTION = 1<<3;
+
 	const OPTION_SPAWNED = 1<<8;
 
 
