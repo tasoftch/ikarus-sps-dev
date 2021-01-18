@@ -63,6 +63,16 @@ interface PluginDescriptionInterface
 	const OPTION_SPAWNED = 1<<8;
 
 
+	const PLUGIN_KIND_PLUGINS 					= 1<<0;
+	const PLUGIN_KIND_BRICKS 					= 1<<1;
+	const PLUGIN_KIND_RELATIONS 				= 1<<2;
+	const PLUGIN_KIND_PROCEDURES 				= 1<<3;
+	const PLUGIN_KIND_VISUAL_BRICKS 			= 1<<4;
+	const PLUGIN_KIND_VISUAL_SHIELDS 			= 1<<5;
+	const PLUGIN_KIND_TEMPLATES 				= 1<<6;
+	const PLUGIN_KIND_ACTION_CONTROLLERS 		= 1<<7;
+
+
 	/**
 	 * Returns the main plugin description
 	 *

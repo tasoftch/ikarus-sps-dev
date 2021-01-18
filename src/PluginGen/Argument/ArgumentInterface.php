@@ -32,85 +32,15 @@
  *
  */
 
-namespace Ikarus\SPS\Dev\PluginGen;
+namespace Ikarus\SPS\Dev\PluginGen\Argument;
 
 
-use Ikarus\SPS\Dev\PluginGen\Argument\ArgumentInterface;
-use Ikarus\SPS\Dev\PluginGen\Argument\StaticArgument;
-
-class Plugin implements PluginInterface
+interface ArgumentInterface
 {
-	/** @var string */
-	private $_class;
-	/** @var string */
-	private $identifier;
-	/** @var string */
-	private $pluginName;
-	/** @var string|null */
-	private $pluginDescription;
-	/** @var ArgumentInterface */
-	private $constructor = [];
-
-	public function __construct(string $class, string $identifier, ...$args)
-	{
-		$this->_class = $class;
-		$this->identifier = $identifier;
-
-		$this->constructor[] = new StaticArgument($identifier);
-
-		foreach($args as $item) {
-			if($item instanceof Description)
-				$this->pluginDescription = (string)$item;
-			elseif($item instanceof Name)
-				$this->pluginName = (string)$item;
-			elseif($item instanceof ArgumentInterface)
-				$this->constructor[] = $item;
-		}
-	}
-
 	/**
+	 * Export into the executable php code string.
+	 *
 	 * @return string
 	 */
-	public function getClass(): string
-	{
-		return $this->_class;
-	}
-
-	/**
-	 * @return string
-	 */
-	public function getPluginName(): string
-	{
-		return $this->pluginName;
-	}
-
-	/**
-	 * @return string|null
-	 */
-	public function getPluginDescription(): ?string
-	{
-		return $this->pluginDescription;
-	}
-
-	/**
-	 * @return array
-	 */
-	public function getConstructor(): array
-	{
-		return $this->constructor;
-	}
-
-	public function construct(): string {
-		return sprintf("new %s(%s)", $this->getClass(), implode(",", array_map(function(ArgumentInterface $argument) {
-			return $argument->export();
-		}, $this->getConstructor())));
-	}
-
-	/**
-	 * @return string
-	 */
-	public function getIdentifier(): string
-	{
-		return $this->identifier;
-	}
+	public function export(): string;
 }

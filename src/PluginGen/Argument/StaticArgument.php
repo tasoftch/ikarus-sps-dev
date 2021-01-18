@@ -32,7 +32,7 @@
  *
  */
 
-namespace Ikarus\SPS\Dev\PluginGen;
+namespace Ikarus\SPS\Dev\PluginGen\Argument;
 
 
 class StaticArgument implements ArgumentInterface

@@ -33,32 +33,32 @@
  */
 
 use Ikarus\SPS\Dev\PluginGen\Description;
-use Ikarus\SPS\Dev\PluginGen\DynamicArgument;
+use Ikarus\SPS\Dev\PluginGen\Argument\DynamicArgument;
 use Ikarus\SPS\Dev\PluginGen\Name;
 use Ikarus\SPS\Dev\PluginGen\Plugin;
-use Ikarus\SPS\Dev\PluginGen\StaticArgument;
-use Ikarus\SPS\Plugin\Cyclic\AbstractCyclicPlugin;
+use Ikarus\SPS\Dev\PluginGen\Argument\StaticArgument;
+use Ikarus\SPS\Plugin\AbstractPlugin;
 use PHPUnit\Framework\TestCase;
 
 class PluginGenerattorTest extends TestCase
 {
 	public function testSimpleGenerator() {
 		$gen = new Plugin(
-			AbstractCyclicPlugin::class,
+			AbstractPlugin::class,
 			new Name("Test"),
 			new Description("Here I am")
 		);
 
 		$this->assertEquals("Test", $gen->getPluginName());
 		$this->assertEquals('Here I am', $gen->getPluginDescription());
-		$this->assertEquals(AbstractCyclicPlugin::class, $gen->getClass());
+		$this->assertEquals(AbstractPlugin::class, $gen->getClass());
 
 		$this->assertEquals("new Ikarus\SPS\Plugin\Cyclic\AbstractCyclicPlugin()", $gen->construct());
 	}
 
 	public function testStaticArgumentsGenerator() {
 		$gen = new Plugin(
-			AbstractCyclicPlugin::class,
+			AbstractPlugin::class,
 			new StaticArgument(1),
 			new StaticArgument('test')
 		);
@@ -68,7 +68,7 @@ class PluginGenerattorTest extends TestCase
 
 	public function testDynamicArgument() {
 		$gen = new Plugin(
-			AbstractCyclicPlugin::class,
+			AbstractPlugin::class,
 			new StaticArgument('my-id'),
 			new DynamicArgument(function() {
 				return Ikarus("Test") * 13;

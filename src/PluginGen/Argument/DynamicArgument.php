@@ -32,15 +32,62 @@
  *
  */
 
-namespace Ikarus\SPS\Dev\PluginGen;
+namespace Ikarus\SPS\Dev\PluginGen\Argument;
 
 
-interface ArgumentInterface
+use Closure;
+
+/**
+ * This class ist a placeholder to inject dynamic arguments into plugins.
+ * You define a closure and this gets extracted out of your code.
+ * The closure must not accept any argument or usages!
+ * Please follow the syntax:
+ new DynamicArgument(function() {
+ 	from here
+
+
+    until here gets extracted.
+ })
+ *
+ * use the Ikarus() function to get global values on runtime.
+ *
+ * @package Ikarus\SPS\Dev\PluginGen
+ * @see Ikarus()
+ */
+class DynamicArgument implements ArgumentInterface
 {
+	/** @var Closure */
+	private $callback;
+
 	/**
-	 * Export into the executable php code string.
-	 *
-	 * @return string
+	 * DynamicArgument constructor.
+	 * @param Closure $callback
 	 */
-	public function export(): string;
+	public function __construct(Closure $callback)
+	{
+		$this->callback = $callback;
+	}
+
+
+	/**
+	 * @return Closure
+	 */
+	public function getCallback(): Closure
+	{
+		return $this->callback;
+	}
+
+	public function export(): string
+	{
+		$fn = new \ReflectionFunction( $this->getCallback() );
+		if($file = $fn->getFileName()) {
+			$s = $fn->getStartLine();
+			$e = $fn->getEndLine();
+
+			$lines = trim(implode(" ", array_slice(file($file), $s, $e-$s-1)));
+			return "(function() { $lines })()";
+		}
+		trigger_error("Can not transform closure into executable string!", E_USER_WARNING);
+		return "NULL";
+	}
 }
