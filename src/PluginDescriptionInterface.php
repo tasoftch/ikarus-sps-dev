@@ -78,13 +78,13 @@ interface PluginDescriptionInterface
 	 *
 	 * @return UserInfoInterface
 	 */
-	public static function getUserInterface(): UserInfoInterface;
+	public function getUserInterface(): UserInfoInterface;
 
 	/**
 	 * Returns a human readable name for the plugin
 	 * @return string
 	 */
-	public static function getPluginName(): string;
+	public function getPluginName(): string;
 
 	/**
 	 * The description must decide, where to place the plugin in the cycle.
