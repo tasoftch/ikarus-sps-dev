@@ -39,11 +39,14 @@ class Pin extends Name
 {
 	/** @var int|null */
 	private $desired;
+	/** @var string */
+	private $label;
 
-	public function __construct(string $name, int $desired = NULL)
+	public function __construct(string $name, string $label = NULL, int $desired = NULL)
 	{
 		parent::__construct($name);
 		$this->desired = $desired;
+		$this->label = $label ?: $name;
 	}
 
 	/**
@@ -57,5 +60,13 @@ class Pin extends Name
 	public function __toString()
 	{
 		return sprintf("%s:b%d", $this->getName(), $this->getDesired() * 1);
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getLabel(): string
+	{
+		return $this->label;
 	}
 }

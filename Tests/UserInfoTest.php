@@ -34,16 +34,10 @@
 
 use Ikarus\SPS\Dev\UI\Command;
 use Ikarus\SPS\Dev\UI\Declaration;
-use Ikarus\SPS\Dev\UI\Description;
 use Ikarus\SPS\Dev\UI\FixedValue;
 use Ikarus\SPS\Dev\UI\Name;
-use Ikarus\SPS\Dev\UI\PlainParameterConstructor;
-use Ikarus\SPS\Dev\UI\Status;
 use Ikarus\SPS\Dev\UI\UserInfo;
 use PHPUnit\Framework\TestCase;
-use Skyline\HTML\Form\Control\Option\PopUpControl;
-use Skyline\HTML\Form\Control\Text\TextFieldControl;
-use Skyline\HTML\Form\Validator\IsNumericValidator;
 
 class UserInfoTest extends TestCase
 {
@@ -92,33 +86,5 @@ class UserInfoTest extends TestCase
 		$this->assertEquals(["cmd-a", 'cmd-b'], $ui->getCommands());
 		$this->assertEquals(['decl'], $ui->getDeclarations());
 		$this->assertEquals(['v1'], $ui->getValues());
-	}
-
-	public function testComplete() {
-		$ui = new UserInfo([
-			new Name("Standard Input"),
-			new Description("Der Input wird standardmässig mit 10kΩ auf 3.3V geladen. Der Wert ist dann 1. Schliesse ihn kurz gegen Masse um den Wert 0 zu erhalten"),
-			new Status('1', "AN"),
-			new Status('0', 'AUS'),
-			(new PlainParameterConstructor(
-				'pin',
-				"resistor"
-			))->setLabel('pin', 'BCM Pin')
-				->setLabel("resistor", "Widerstand")
-				->setControl(
-					(new TextFieldControl("pin", 'pin'))
-						->addValidator(new IsNumericValidator())
-						->setReadonly(true)
-				)
-				->setControl(
-					(new PopUpControl("resistor", 'resistor'))
-						->setNullPlaceholder("Keinen")
-						->setOption("-1", '10kΩ auf Masse')
-						->setOption("1", "10kΩ auf 3.3V")
-				),
-			new Declaration("digital-input")
-		]);
-
-		print_r($ui);
 	}
 }
