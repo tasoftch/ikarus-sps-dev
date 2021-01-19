@@ -54,6 +54,9 @@ class UserInfo implements UserInfoInterface
 	/** @var Declaration[] */
 	private $declarations = [];
 
+	/** @var Pin[] */
+	private $desiredPins = [];
+
 	private $construction;
 
 	/**
@@ -67,6 +70,8 @@ class UserInfo implements UserInfoInterface
 				$this->values[] = $item;
 			elseif($item instanceof Status)
 				$this->status[] = $item;
+			elseif($item instanceof Pin)
+				$this->desiredPins[] = $item;
 			elseif($item instanceof Command)
 				$this->commands[] = $item;
 			elseif($item instanceof Description)
@@ -142,5 +147,13 @@ class UserInfo implements UserInfoInterface
 	public function getDeclarations(): array
 	{
 		return $this->declarations;
+	}
+
+	/**
+	 * @return Pin[]
+	 */
+	public function getDesiredPins(): array
+	{
+		return $this->desiredPins;
 	}
 }

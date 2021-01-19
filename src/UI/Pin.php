@@ -32,52 +32,30 @@
  *
  */
 
-use Ikarus\SPS\Dev\PluginGen\Description;
-use Ikarus\SPS\Dev\PluginGen\Argument\DynamicArgument;
-use Ikarus\SPS\Dev\PluginGen\Name;
-use Ikarus\SPS\Dev\PluginGen\Plugin;
-use Ikarus\SPS\Dev\PluginGen\Argument\StaticArgument;
-use Ikarus\SPS\Plugin\AbstractPlugin;
-use PHPUnit\Framework\TestCase;
+namespace Ikarus\SPS\Dev\UI;
 
-class PluginGenerattorTest extends TestCase
+
+class Pin extends Name
 {
-	public function testSimpleGenerator() {
-		$gen = new Plugin(
-			AbstractPlugin::class,
-			'id',
-			new Name("Test"),
-			new Description("Here I am")
-		);
+	/** @var int|null */
+	private $desired;
 
-		$this->assertEquals("id", $gen->getIdentifier());
-		$this->assertEquals("Test", $gen->getPluginName());
-		$this->assertEquals('Here I am', $gen->getPluginDescription());
-		$this->assertEquals(AbstractPlugin::class, $gen->getClass());
-
-		$this->assertEquals("new Ikarus\SPS\Plugin\AbstractPlugin('id')", $gen->construct());
+	public function __construct(string $name, int $desired = NULL)
+	{
+		parent::__construct($name);
+		$this->desired = $desired;
 	}
 
-	public function testStaticArgumentsGenerator() {
-		$gen = new Plugin(
-			AbstractPlugin::class,
-			'id',
-			new StaticArgument(1),
-			new StaticArgument('test')
-		);
-
-		$this->assertEquals("new Ikarus\SPS\Plugin\AbstractPlugin('id',1,'test')", $gen->construct());
+	/**
+	 * @return int|null
+	 */
+	public function getDesired(): ?int
+	{
+		return $this->desired;
 	}
 
-	public function testDynamicArgument() {
-		$gen = new Plugin(
-			AbstractPlugin::class,
-			'my-id',
-			new DynamicArgument(function() {
-				return Ikarus("Test") * 13;
-			})
-		);
-
-		$this->assertEquals("new Ikarus\SPS\Plugin\AbstractPlugin('my-id',(function() { return Ikarus(\"Test\") * 13; })())", $gen->construct());
+	public function __toString()
+	{
+		return sprintf("%s:b%d", $this->getName(), $this->getDesired() * 1);
 	}
 }

@@ -73,6 +73,11 @@ interface UserInfoInterface
 	public function getDeclarations(): array;
 
 	/**
+	 * @return Pin[]
+	 */
+	public function getDesiredPins(): array;
+
+	/**
 	 * @return PluginConstructionInterface|null
 	 */
 	public function getPluginConstruction(): ?PluginConstructionInterface;
