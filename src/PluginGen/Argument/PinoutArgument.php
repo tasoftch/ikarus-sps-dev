@@ -37,13 +37,54 @@ namespace Ikarus\SPS\Dev\PluginGen\Argument;
 
 class PinoutArgument implements ArgumentInterface
 {
+	const OPTION_OUTPUT = 1<<0;
 
+	const OPTION_RESISTOR_UP = 1<<1;
+	const OPTION_RESISTOR_DOWN = 1<<2;
+	const OPTION_PWM_OUTPUT = 1<<3 | self::OPTION_OUTPUT;
+
+	const PIN_ALL_GPIO = -1;
+	const PIN_ANY_GPIO = -2;
+
+	/** @var int */
+	private $pin;
+	/** @var int */
+	private $options;
+
+
+
+	/**
+	 * PinoutArgument constructor.
+	 * @param int $pin
+	 * @param int $options
+	 */
+	public function __construct(int $pin, int $options = 0)
+	{
+		$this->pin = $pin;
+		$this->options = $options;
+	}
+
+	/**
+	 * @return int
+	 */
+	public function getPin(): int
+	{
+		return $this->pin;
+	}
+
+	/**
+	 * @return int
+	 */
+	public function getOptions(): int
+	{
+		return $this->options;
+	}
 
 	/**
 	 * @inheritDoc
 	 */
 	public function export(): string
 	{
-		// TODO: Implement export() method.
+		return sprintf("[%d, %d]", $this->getPin(), $this->getOptions());
 	}
 }

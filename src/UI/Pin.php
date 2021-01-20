@@ -35,14 +35,16 @@
 namespace Ikarus\SPS\Dev\UI;
 
 
+use Ikarus\SPS\Dev\PluginGen\Argument\PinoutArgument;
+
 class Pin extends Name
 {
-	/** @var int|null */
+	/** @var int */
 	private $desired;
 	/** @var string */
 	private $label;
 
-	public function __construct(string $name, string $label = NULL, int $desired = NULL)
+	public function __construct(string $name, string $label = NULL, int $desired = PinoutArgument::PIN_ANY_GPIO)
 	{
 		parent::__construct($name);
 		$this->desired = $desired;
@@ -50,9 +52,9 @@ class Pin extends Name
 	}
 
 	/**
-	 * @return int|null
+	 * @return int
 	 */
-	public function getDesired(): ?int
+	public function getDesired(): int
 	{
 		return $this->desired;
 	}
