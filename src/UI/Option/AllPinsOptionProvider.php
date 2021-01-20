@@ -35,37 +35,35 @@
 namespace Ikarus\SPS\Dev\UI\Option;
 
 
+use Ikarus\SPS\Dev\PluginGen\Argument\PinoutArgument;
 use Skyline\HTML\Form\Control\Option\Provider\OptionProviderInterface;
 
-class DeclarationOptionProvider implements OptionProviderInterface
+class AllPinsOptionProvider implements OptionProviderInterface
 {
-	/** @var string */
-	private $declaration;
 	/** @var callable This factory gets injected by Ikarus SPS Web Interface */
-	private static $factory;
+	protected static $factory;
 
-	/**
-	 * DeclarationOptionProvider constructor.
-	 * @param string $declaration
-	 */
-	public function __construct(string $declaration)
+	/** @var int|array */
+	private $acceptedPins;
+
+	protected $mods = ['all'];
+
+	public function __construct($acceptedPins = PinoutArgument::PIN_ALL_GPIO)
 	{
-		$this->declaration = $declaration;
+		$this->acceptedPins = $acceptedPins;
 	}
 
-	/**
-	 * @inheritDoc
-	 */
 	public function yieldOptions(?string &$group): \Generator
 	{
-		yield from (self::$factory)($this->getDeclaration(), $group);
+		yield from (self::$factory)($this->getAcceptedPins(), $this->mods, $group);
 	}
 
 	/**
-	 * @return string
+	 * @return array|int
 	 */
-	public function getDeclaration(): string
+	public function getAcceptedPins()
 	{
-		return $this->declaration;
+		return $this->acceptedPins;
 	}
+
 }

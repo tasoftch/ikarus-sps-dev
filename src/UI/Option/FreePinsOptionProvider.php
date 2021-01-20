@@ -35,37 +35,7 @@
 namespace Ikarus\SPS\Dev\UI\Option;
 
 
-use Skyline\HTML\Form\Control\Option\Provider\OptionProviderInterface;
-
-class DeclarationOptionProvider implements OptionProviderInterface
+class FreePinsOptionProvider extends AllPinsOptionProvider
 {
-	/** @var string */
-	private $declaration;
-	/** @var callable This factory gets injected by Ikarus SPS Web Interface */
-	private static $factory;
-
-	/**
-	 * DeclarationOptionProvider constructor.
-	 * @param string $declaration
-	 */
-	public function __construct(string $declaration)
-	{
-		$this->declaration = $declaration;
-	}
-
-	/**
-	 * @inheritDoc
-	 */
-	public function yieldOptions(?string &$group): \Generator
-	{
-		yield from (self::$factory)($this->getDeclaration(), $group);
-	}
-
-	/**
-	 * @return string
-	 */
-	public function getDeclaration(): string
-	{
-		return $this->declaration;
-	}
+	protected $mods = ['free'];
 }
