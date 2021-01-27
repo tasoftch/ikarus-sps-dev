@@ -32,59 +32,45 @@
  *
  */
 
-namespace Ikarus\SPS\Dev\PluginGen\Argument;
+namespace Ikarus\SPS\Dev\UI;
 
 
-class PinoutArgument implements ArgumentInterface
+class PinoutDefinition extends Name
 {
-	const OPTION_OUTPUT = 1<<0;
-
-	const OPTION_RESISTOR_UP = 1<<1;
-	const OPTION_RESISTOR_DOWN = 1<<2;
-	const OPTION_PWM_OUTPUT = 1<<3 | self::OPTION_OUTPUT;
-
-	const PIN_ALL_GPIO = -1;
-	const PIN_ANY_GPIO = -2;
-
-	/** @var int */
-	private $pin;
-	/** @var int */
-	private $options;
+	const DEF_DIGITAL_INPUT = 'dinp';
+	const DEF_DIGITAL_INPUT_WITH_PLUG = 'dinpp';
+	const DEF_ANALOG_INPUT = 'ainp';
+	const DEF_DIFFERENCE_ANALOG_INPUT = 'dainp';
+	const DEF_DIGITAL_OUTPUT = 'dout';
+	const DEF_ANALOG_OUTPUT = 'aout';
+	const DEF_ANALOG_OUTPUT_WITH_MEASURE = 'aoutp';
 
 
+	/** @var string */
+	private $definition;
+	/** @var string */
+	private $label;
 
-	/**
-	 * PinoutArgument constructor.
-	 * @param int $pin
-	 * @param int $options
-	 */
-	public function __construct(int $pin, int $options = 0)
+	public function __construct(string $name, string $definition,  string $label = NULL)
 	{
-		$this->pin = $pin;
-		$this->options = $options;
+		parent::__construct($name);
+		$this->definition = $definition;
+		$this->label = $label;
 	}
 
 	/**
-	 * @return int
+	 * @return string
 	 */
-	public function getPin(): int
+	public function getDefinition(): string
 	{
-		return $this->pin;
+		return $this->definition;
 	}
 
 	/**
-	 * @return int
+	 * @return string
 	 */
-	public function getOptions(): int
+	public function getLabel(): ?string
 	{
-		return $this->options;
-	}
-
-	/**
-	 * @inheritDoc
-	 */
-	public function export(): string
-	{
-		return sprintf("[%d, %d]", $this->getPin(), $this->getOptions());
+		return $this->label;
 	}
 }

@@ -32,13 +32,10 @@
  *
  */
 
-namespace Ikarus\SPS\Dev\UI;
+namespace Ikarus\SPS\Dev\UI\Option;
 
 
-class PinWPI extends Pin
+class PinoutDefinitionOptionProvider extends AllPinsOptionProvider
 {
-	public function __toString()
-	{
-		return sprintf("%s:w%d", $this->getName(), $this->getDesired() * 1);
-	}
+	protected $mods = ['free'];
 }

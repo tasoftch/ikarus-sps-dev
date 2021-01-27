@@ -35,11 +35,14 @@
 namespace Ikarus\SPS\Dev\UI\Option;
 
 
-use Ikarus\SPS\Dev\PluginGen\Argument\PinoutArgument;
 use Skyline\HTML\Form\Control\Option\Provider\OptionProviderInterface;
 
 class AllPinsOptionProvider implements OptionProviderInterface
 {
+	const PIN_ALL_GPIO = -1;
+	const PIN_ANY_GPIO = -2;
+
+
 	/** @var callable This factory gets injected by Ikarus SPS Web Interface */
 	protected static $factory;
 
@@ -48,7 +51,7 @@ class AllPinsOptionProvider implements OptionProviderInterface
 
 	protected $mods = ['all'];
 
-	public function __construct($acceptedPins = PinoutArgument::PIN_ALL_GPIO)
+	public function __construct($acceptedPins = self::PIN_ALL_GPIO)
 	{
 		$this->acceptedPins = $acceptedPins;
 	}
