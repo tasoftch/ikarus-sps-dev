@@ -51,6 +51,15 @@ class PinoutDefinition extends Name
 	/** @var string */
 	private $label;
 
+	/**
+	 * PinoutDefinition constructor.
+	 *
+	 * The name specifies the argument name in the constructor.
+	 *
+	 * @param string $name
+	 * @param string $definition
+	 * @param string|null $label$
+	 */
 	public function __construct(string $name, string $definition,  string $label = NULL)
 	{
 		parent::__construct($name);
