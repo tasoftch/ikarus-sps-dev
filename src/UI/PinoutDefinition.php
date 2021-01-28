@@ -42,6 +42,7 @@ class PinoutDefinition extends Name
 	const DEF_ANALOG_INPUT = 'ainp';
 	const DEF_DIFFERENCE_ANALOG_INPUT = 'dainp';
 	const DEF_DIGITAL_OUTPUT = 'dout';
+	const DEF_DIGITAL_OUTPUT_RELAIS = 'doutr';
 	const DEF_ANALOG_OUTPUT = 'aout';
 	const DEF_ANALOG_OUTPUT_WITH_MEASURE = 'aoutp';
 

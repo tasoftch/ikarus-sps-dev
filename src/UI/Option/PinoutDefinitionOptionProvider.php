@@ -38,4 +38,10 @@ namespace Ikarus\SPS\Dev\UI\Option;
 class PinoutDefinitionOptionProvider extends AllPinsOptionProvider
 {
 	protected $mods = ['free'];
+
+	public function __construct($definition)
+	{
+		parent::__construct();
+		$this->mods[] = $definition;
+	}
 }
