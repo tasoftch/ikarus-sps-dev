@@ -68,14 +68,9 @@ interface UserInfoInterface
 	public function getValues(): array;
 
 	/**
-	 * @return Declaration[]
+	 * @return PinoutDefinition[]|null
 	 */
-	public function getDeclarations(): array;
-
-	/**
-	 * @return Pin[]
-	 */
-	public function getDesiredPins(): array;
+	public function getPinoutDefinitions(): ?array;
 
 	/**
 	 * @return PluginConstructionInterface|null
