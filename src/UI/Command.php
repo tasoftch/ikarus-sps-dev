@@ -35,7 +35,7 @@
 namespace Ikarus\SPS\Dev\UI;
 
 
-class Command extends Name
+class Command extends Name implements InteractionElementInterface
 {
 	private $label;
 
