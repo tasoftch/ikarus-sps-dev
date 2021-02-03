@@ -59,6 +59,10 @@ interface PluginDescriptionInterface
 	const OPTION_PINOUT_AS_ADDR = 1<<1;
 	const OPTION_PINOUT_AS_PIN_ADDR_ARRAY = 1<<2;
 
+	const OPTION_PIN_AS_BOARD = 1<<5;
+	const OPTION_PIN_AS_BCM = 1<<6;
+	const OPTION_PIN_AS_WPI = 1<<7;
+
 	const OPTION_SPAWNED = 1<<8;
 
 
