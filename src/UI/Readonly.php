@@ -35,48 +35,21 @@
 namespace Ikarus\SPS\Dev\UI;
 
 
-interface UserInfoInterface
+class Readonly
 {
-	/**
-	 * @return string
-	 */
-	public function getName(): string;
+	/** @var array */
+	private $keys;
+
+	public function __construct(...$keys)
+	{
+		$this->keys = $keys;
+	}
 
 	/**
-	 * @return string
+	 * @return array
 	 */
-	public function getGroup(): ?string;
-
-	/**
-	 * @return string
-	 */
-	public function getDescription(): ?string;
-
-	/**
-	 * @return Command[]
-	 */
-	public function getCommands(): array;
-
-	/**
-	 * @return Status[]
-	 */
-	public function getStatus(): array;
-
-	/**
-	 * @return Value[]
-	 */
-	public function getValues(): array;
-
-	/**
-	 * @return PinoutDefinition[]|null
-	 */
-	public function getPinoutDefinitions(): ?array;
-
-	/**
-	 * @return PluginConstructionInterface|null
-	 */
-	public function getPluginConstruction(): ?PluginConstructionInterface;
-
-	public function isReadonly(InteractionElementInterface $element): bool;
-	public function isWriteonly(InteractionElementInterface $element): bool;
+	public function getKeys(): array
+	{
+		return $this->keys;
+	}
 }

@@ -56,6 +56,12 @@ class UserInfo implements UserInfoInterface
 
 	private $construction;
 
+	/** @var Readonly|null */
+	private $readonly;
+
+	/** @var Writeonly */
+	private $writeonly;
+
 	/**
 	 * UserInfo constructor.
 	 * @param Name|Description|Command[]|Status[]
@@ -63,7 +69,11 @@ class UserInfo implements UserInfoInterface
 	public function __construct(...$items)
 	{
 		foreach($items as $item) {
-			if($item instanceof Value)
+			if($item instanceof Writeonly)
+				$this->writeonly = $item;
+			elseif($item instanceof Readonly)
+				$this->readonly = $item;
+			elseif($item instanceof Value)
 				$this->values[] = $item;
 			elseif($item instanceof Status)
 				$this->status[] = $item;
@@ -142,5 +152,17 @@ class UserInfo implements UserInfoInterface
 	public function getPinoutDefinitions(): ?array
 	{
 		return $this->pinoutDefinitions;
+	}
+
+	public function isReadonly(InteractionElementInterface $element): bool {
+		if($this->readonly)
+			return in_array($element->getName(), $this->readonly->getKeys());
+		return false;
+	}
+
+	public function isWriteonly(InteractionElementInterface $element): bool {
+		if($this->writeonly)
+			return in_array($element->getName(), $this->writeonly->getKeys());
+		return false;
 	}
 }
