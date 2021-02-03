@@ -156,13 +156,13 @@ class UserInfo implements UserInfoInterface
 
 	public function isReadonly(InteractionElementInterface $element): bool {
 		if($this->readonly)
-			return in_array($element->getName(), $this->readonly->getKeys());
+			return in_array($element->getName(), $this->readonly->getKeys()) || in_array(get_class($element), $this->readonly->getKeys());
 		return false;
 	}
 
 	public function isWriteonly(InteractionElementInterface $element): bool {
 		if($this->writeonly)
-			return in_array($element->getName(), $this->writeonly->getKeys());
+			return in_array($element->getName(), $this->writeonly->getKeys()) || in_array(get_class($element), $this->writeonly->getKeys());
 		return false;
 	}
 }
