@@ -75,6 +75,8 @@ interface PluginDescriptionInterface
 	const PLUGIN_KIND_TEMPLATES 				= 1<<6;
 	const PLUGIN_KIND_ACTION_CONTROLLERS 		= 1<<7;
 
+	const PLUGIN_KIND_ACTION_NODE_COMPONENTS	= 1<<8;
+
 
 	/**
 	 * Returns the main plugin description
