@@ -32,33 +32,26 @@
  *
  */
 
-namespace Ikarus\SPS\Dev\PluginGen;
+namespace Ikarus\SPS\Dev\Node\Executable;
 
+use Ikarus\SPS\Register\MemoryRegisterInterface;
 
-class Name
+/**
+ * This interface describes the executable's method signature.
+ * You must use closures because Ikarus SPS will extract the code into a compiled version.
+ * The closure will not be executed in its class context!
+ *
+ * @package Ikarus\SPS\Dev\Node
+ */
+interface ExecutableInterface
 {
-	/** @var string */
-	private $name;
-
 	/**
-	 * Name constructor.
-	 * @param string $name
+	 * This method is responsible that every node using the executable's component is performed.
+	 *
+	 * @param MemoryRegisterInterface $memoryRegister
+	 * @param array $nodeData
+	 * @param array $inputs
+	 * @param array $outputs
 	 */
-	public function __construct(string $name)
-	{
-		$this->name = $name;
-	}
-
-	/**
-	 * @return string
-	 */
-	public function getName(): string
-	{
-		return $this->name;
-	}
-
-	public function __toString()
-	{
-		return $this->getName();
-	}
+	public function __invoke(MemoryRegisterInterface $memoryRegister, array $nodeData, array $inputs, array $outputs);
 }

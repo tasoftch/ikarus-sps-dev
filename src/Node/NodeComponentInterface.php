@@ -32,85 +32,59 @@
  *
  */
 
-namespace Ikarus\SPS\Dev\PluginGen;
+namespace Ikarus\SPS\Dev\Node;
 
+use Ikarus\SPS\Dev\Node\Executable\ExecutableInterface;
+use Ikarus\SPS\Dev\Node\Socket\Input;
+use Ikarus\SPS\Dev\Node\Socket\Output;
 
-use Ikarus\SPS\Dev\PluginGen\Argument\ArgumentInterface;
-use Ikarus\SPS\Dev\PluginGen\Argument\StaticArgument;
-
-class Plugin implements PluginInterface
+interface NodeComponentInterface
 {
-	/** @var string */
-	private $_class;
-	/** @var string */
-	private $identifier;
-	/** @var string */
-	private $pluginName;
-	/** @var string|null */
-	private $pluginDescription;
-	/** @var ArgumentInterface */
-	private $constructor = [];
-
-	public function __construct(string $class, string $identifier, ...$args)
-	{
-		$this->_class = $class;
-		$this->identifier = $identifier;
-
-		$this->constructor[] = new StaticArgument($identifier);
-
-		foreach($args as $item) {
-			if($item instanceof Description)
-				$this->pluginDescription = (string)$item;
-			elseif($item instanceof Name)
-				$this->pluginName = (string)$item;
-			elseif($item instanceof ArgumentInterface)
-				$this->constructor[] = $item;
-		}
-	}
-
 	/**
+	 * The component's name. It must not change at all cause all already created nodes are invalid
+	 *
 	 * @return string
 	 */
-	public function getClass(): string
-	{
-		return $this->_class;
-	}
+	public function getName(): string;
 
 	/**
-	 * @return string
-	 */
-	public function getPluginName(): string
-	{
-		return $this->pluginName;
-	}
-
-	/**
+	 * Gets a default label for any created node on the scene
+	 *
 	 * @return string|null
 	 */
-	public function getPluginDescription(): ?string
-	{
-		return $this->pluginDescription;
-	}
+	public function getLabel(): ?string;
 
 	/**
-	 * @return array
+	 * Defines, where to put the component inside of the new component context menu
+	 *
+	 * @return array|null
 	 */
-	public function getConstructor(): array
-	{
-		return $this->constructor;
-	}
-
-	public function construct(): string {
-		return sprintf("new %s(%s)", $this->getClass(), implode(",", array_map(function(ArgumentInterface $argument) {
-			return $argument->export();
-		}, $this->getConstructor())));
-	}
+	public function getMenuPath(): ?array;
 
 	/**
-	 * @return string
+	 * Defines all possible input's
+	 *
+	 * @return Output[]
 	 */
-	public function getIdentifier(): string
-	{
-		return $this->identifier;
-	}
+	public function getOutputs(): array;
+
+	/**
+	 * @return Input[]
+	 */
+	public function getInputs(): array;
+
+	/**
+	 * @return Control[]
+	 */
+	public function getControls(): array;
+
+	/**
+	 * Exports a closure with instructions to handle the component.
+	 *Please note that the closure is exported into a separate file, so it will not be executed in the class context!
+	 *
+	 *
+	 * @return \Closure
+	 * @see ExecutableInterface
+	 */
+	public function getExecutable(): \Closure;
 }

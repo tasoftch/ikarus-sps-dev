@@ -36,7 +36,6 @@ namespace Ikarus\SPS\Dev\Node;
 
 use Ikarus\SPS\Dev\Node\Socket\Input;
 use Ikarus\SPS\Dev\Node\Socket\Output;
-use Ikarus\SPS\Dev\NodeComponentInterface;
 
 abstract class AbstractNodeComponent implements NodeComponentInterface
 {
