@@ -45,20 +45,24 @@ class Control
 	private $readonly;
 	/** @var string|null */
 	private $placeholder;
+	/** @var string */
+	private $ikey;
 
 	/**
 	 * Control constructor.
 	 * @param string $name
+	 * @param string $ikey
 	 * @param bool $readonly
 	 * @param string|null $placeholder
 	 * @param string|null $builder
 	 */
-	public function __construct(string $name, bool $readonly = false, string $placeholder = NULL, string $builder = NULL)
+	public function __construct(string $name, string $ikey, bool $readonly = false, string $placeholder = NULL, string $builder = NULL)
 	{
 		$this->name = $name;
 		$this->builder = $builder;
 		$this->readonly = $readonly;
 		$this->placeholder = $placeholder;
+		$this->ikey = $ikey;
 	}
 
 
@@ -92,5 +96,13 @@ class Control
 	public function getPlaceholder(): ?string
 	{
 		return $this->placeholder;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getIkey(): string
+	{
+		return $this->ikey;
 	}
 }
