@@ -68,7 +68,7 @@ abstract class AbstractNodeComponent implements NodeComponentInterface
 
 	public function getName(): string
 	{
-		return $this->label ?: ucfirst($this->name);
+		return $this->name;
 	}
 
 	/**
@@ -76,7 +76,7 @@ abstract class AbstractNodeComponent implements NodeComponentInterface
 	 */
 	public function getLabel(): ?string
 	{
-		return ucfirst($this->getName());
+		return $this->label ?: ucfirst($this->name);
 	}
 
 	/**
