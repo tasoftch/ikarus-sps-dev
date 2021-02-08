@@ -34,19 +34,11 @@
 
 namespace Ikarus\SPS\Dev\Node;
 
-use Ikarus\SPS\Dev\Node\Executable\ExecutableInterface;
 use Ikarus\SPS\Dev\Node\Socket\Input;
 use Ikarus\SPS\Dev\Node\Socket\Output;
 
-interface NodeComponentInterface
+interface NodeComponentInterface extends \Ikarus\SPS\Procedure\Runtime\NodeComponentInterface
 {
-	/**
-	 * The component's name. It must not change at all cause all already created nodes are invalid
-	 *
-	 * @return string
-	 */
-	public function getName(): string;
-
 	/**
 	 * Gets a default label for any created node on the scene
 	 *
@@ -77,14 +69,4 @@ interface NodeComponentInterface
 	 * @return Control[]
 	 */
 	public function getControls(): array;
-
-	/**
-	 * Exports a closure with instructions to handle the component.
-	 *Please note that the closure is exported into a separate file, so it will not be executed in the class context!
-	 *
-	 *
-	 * @return \Closure
-	 * @see ExecutableInterface
-	 */
-	public function getExecutable(): \Closure;
 }

@@ -34,8 +34,7 @@
 
 namespace Ikarus\SPS\Dev\Node\Socket;
 
-
 interface ControllableSocketInterface extends SocketInterface
 {
-	public function getControlName(): string;
+	public function getControl();
 }

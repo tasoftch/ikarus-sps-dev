@@ -39,7 +39,7 @@ use Ikarus\SPS\Dev\Node\Socket\Output;
 
 abstract class AbstractNodeComponent implements NodeComponentInterface
 {
-	private $menuPath;
+	private $menuPath, $name, $label;
 	private $inputs = [];
 	private $outputs = [];
 	private $controls = [];
@@ -51,7 +51,11 @@ abstract class AbstractNodeComponent implements NodeComponentInterface
 	public function __construct(...$items)
 	{
 		foreach($items as $item) {
-			if($item instanceof Output)
+			if($item instanceof Label)
+				$this->label = $item->getName();
+			elseif($item instanceof Name)
+				$this->name = $item->getName();
+			elseif($item instanceof Output)
 				$this->outputs[ $item->getName() ] = $item;
 			elseif($item instanceof Input)
 				$this->inputs[ $item->getName() ] = $item;
@@ -60,6 +64,11 @@ abstract class AbstractNodeComponent implements NodeComponentInterface
 			elseif($item instanceof Control)
 				$this->controls[ $item->getName() ] = $item;
 		}
+	}
+
+	public function getName(): string
+	{
+		return $this->label ?: ucfirst($this->name);
 	}
 
 	/**

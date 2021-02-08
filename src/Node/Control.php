@@ -39,18 +39,26 @@ class Control
 {
 	/** @var string */
 	private $name;
-	/** @var array */
-	private $parameters;
+	/** @var string|null */
+	private $builder;
+	/** @var bool */
+	private $readonly;
+	/** @var string|null */
+	private $placeholder;
 
 	/**
 	 * Control constructor.
 	 * @param string $name
-	 * @param array $parameters
+	 * @param bool $readonly
+	 * @param string|null $placeholder
+	 * @param string|null $builder
 	 */
-	public function __construct(string $name, ...$parameters)
+	public function __construct(string $name, bool $readonly = false, string $placeholder = NULL, string $builder = NULL)
 	{
 		$this->name = $name;
-		$this->parameters = $parameters;
+		$this->builder = $builder;
+		$this->readonly = $readonly;
+		$this->placeholder = $placeholder;
 	}
 
 
@@ -63,10 +71,26 @@ class Control
 	}
 
 	/**
-	 * @return array
+	 * @return string|null
 	 */
-	public function getParameters(): array
+	public function getBuilder(): ?string
 	{
-		return $this->parameters;
+		return $this->builder;
+	}
+
+	/**
+	 * @return bool
+	 */
+	public function isReadonly(): bool
+	{
+		return $this->readonly;
+	}
+
+	/**
+	 * @return string|null
+	 */
+	public function getPlaceholder(): ?string
+	{
+		return $this->placeholder;
 	}
 }

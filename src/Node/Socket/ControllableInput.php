@@ -35,17 +35,27 @@
 namespace Ikarus\SPS\Dev\Node\Socket;
 
 
+use Ikarus\SPS\Dev\Node\Control;
+
 class ControllableInput extends Input implements ControllableSocketInterface
 {
-	private $controlName;
+	/** @var Control|string|null  */
+	private $control;
 
-	public function __construct(string $name, string $label = NULL, string $type = self::SOCKET_TYPE_ANY, string $controlName = NULL)
+	/**
+	 * ControllableInput constructor.
+	 * @param string $name
+	 * @param string|null $label
+	 * @param string $type
+	 * @param Control|string|null $control
+	 */
+	public function __construct(string $name, string $label = NULL, string $type = self::SOCKET_TYPE_ANY, $control = NULL)
 	{
 		parent::__construct($name, $label, $type);
-		$this->controlName = $controlName ?: $type;
+		$this->control = $control ?: $type;
 	}
 
-	public function getControlName(): string {
-		return $this->controlName;
+	public function getControl() {
+		return $this->control;
 	}
 }
