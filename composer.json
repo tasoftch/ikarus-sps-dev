@@ -16,7 +16,7 @@
     "php": ">=7.2",
     "ikarus/sps": "^0.8",
     "skyline/html-form": "^0.8",
-    "ikarus/sps-procedure": "dev-restructurize"
+    "ikarus/sps-procedure": "^0"
   },
   "require-dev": {
     "phpunit/phpunit": "^9"
