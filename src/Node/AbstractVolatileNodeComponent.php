@@ -32,16 +32,41 @@
  *
  */
 
-namespace Ikarus\SPS\Dev\Node\Socket;
+namespace Ikarus\SPS\Dev\Node;
 
 
-class Output extends Input
+abstract class AbstractVolatileNodeComponent extends \Ikarus\SPS\Procedure\Model\AbstractVolatileNodeComponent
 {
+	private $menuPath, $label;
+
 	/**
-	 * @return bool
+	 * AbstractNode constructor.
+	 * @param mixed ...$items
 	 */
-	public function isMultiple(): bool
+	public function __construct(string $name, ...$items)
 	{
-		return true;
+		foreach($items as $item) {
+			if($item instanceof Label)
+				$this->label = $item->getName();
+			elseif($item instanceof MenuPath)
+				$this->menuPath = $item->getPath();
+		}
+		parent::__construct($name, $items);
+	}
+
+	/**
+	 * @inheritDoc
+	 */
+	public function getLabel(): ?string
+	{
+		return $this->label ?: ucfirst($this->getName());
+	}
+
+	/**
+	 * @inheritDoc
+	 */
+	public function getMenuPath(): ?array
+	{
+		return $this->menuPath;
 	}
 }

@@ -37,6 +37,8 @@ namespace Ikarus\SPS\Dev\UI;
 
 class Value extends Command
 {
+
+
 	/** @var string */
 	private $type;
 

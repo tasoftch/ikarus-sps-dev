@@ -37,7 +37,7 @@ namespace Ikarus\SPS\Dev\Node;
 use Ikarus\SPS\Dev\Node\Socket\Input;
 use Ikarus\SPS\Dev\Node\Socket\Output;
 
-interface NodeComponentInterface extends \Ikarus\SPS\Procedure\Runtime\NodeComponentInterface
+interface NodeComponentInterface extends \Ikarus\SPS\Procedure\Model\NodeComponentInterface
 {
 	/**
 	 * Gets a default label for any created node on the scene
@@ -52,21 +52,4 @@ interface NodeComponentInterface extends \Ikarus\SPS\Procedure\Runtime\NodeCompo
 	 * @return array|null
 	 */
 	public function getMenuPath(): ?array;
-
-	/**
-	 * Defines all possible input's
-	 *
-	 * @return Output[]
-	 */
-	public function getOutputs(): array;
-
-	/**
-	 * @return Input[]
-	 */
-	public function getInputs(): array;
-
-	/**
-	 * @return Control[]
-	 */
-	public function getControls(): array;
 }

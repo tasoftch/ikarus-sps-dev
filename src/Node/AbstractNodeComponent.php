@@ -34,41 +34,23 @@
 
 namespace Ikarus\SPS\Dev\Node;
 
-use Ikarus\SPS\Dev\Node\Socket\Input;
-use Ikarus\SPS\Dev\Node\Socket\Output;
-
-abstract class AbstractNodeComponent implements NodeComponentInterface
+abstract class AbstractNodeComponent extends \Ikarus\SPS\Procedure\Model\AbstractNodeComponent
 {
-	private $menuPath, $name, $label;
-	private $inputs = [];
-	private $outputs = [];
-	private $controls = [];
+	private $menuPath, $label;
 
 	/**
 	 * AbstractNode constructor.
 	 * @param mixed ...$items
 	 */
-	public function __construct(...$items)
+	public function __construct(string $name, ...$items)
 	{
 		foreach($items as $item) {
 			if($item instanceof Label)
 				$this->label = $item->getName();
-			elseif($item instanceof Name)
-				$this->name = $item->getName();
-			elseif($item instanceof Output)
-				$this->outputs[ $item->getName() ] = $item;
-			elseif($item instanceof Input)
-				$this->inputs[ $item->getName() ] = $item;
 			elseif($item instanceof MenuPath)
 				$this->menuPath = $item->getPath();
-			elseif($item instanceof Control)
-				$this->controls[ $item->getName() ] = $item;
 		}
-	}
-
-	public function getName(): string
-	{
-		return $this->name;
+		parent::__construct($name, $items);
 	}
 
 	/**
@@ -76,7 +58,7 @@ abstract class AbstractNodeComponent implements NodeComponentInterface
 	 */
 	public function getLabel(): ?string
 	{
-		return $this->label ?: ucfirst($this->name);
+		return $this->label ?: ucfirst($this->getName());
 	}
 
 	/**
@@ -85,26 +67,5 @@ abstract class AbstractNodeComponent implements NodeComponentInterface
 	public function getMenuPath(): ?array
 	{
 		return $this->menuPath;
-	}
-
-	/**
-	 * @inheritDoc
-	 */
-	public function getOutputs(): array
-	{
-		return $this->outputs;
-	}
-
-	public function getInputs(): array
-	{
-		return $this->inputs;
-	}
-
-	/**
-	 * @return array
-	 */
-	public function getControls(): array
-	{
-		return $this->controls;
 	}
 }
