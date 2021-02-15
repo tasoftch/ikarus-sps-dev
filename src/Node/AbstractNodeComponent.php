@@ -50,7 +50,7 @@ abstract class AbstractNodeComponent extends \Ikarus\SPS\Procedure\Model\Abstrac
 			elseif($item instanceof MenuPath)
 				$this->menuPath = $item->getPath();
 		}
-		parent::__construct($name, $items);
+		parent::__construct($name, ...$items);
 	}
 
 	/**

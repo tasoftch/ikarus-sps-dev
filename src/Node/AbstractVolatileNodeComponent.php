@@ -51,7 +51,7 @@ abstract class AbstractVolatileNodeComponent extends \Ikarus\SPS\Procedure\Model
 			elseif($item instanceof MenuPath)
 				$this->menuPath = $item->getPath();
 		}
-		parent::__construct($name, $items);
+		parent::__construct($name, ...$items);
 	}
 
 	/**
