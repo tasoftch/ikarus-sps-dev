@@ -110,5 +110,5 @@ interface PluginDescriptionInterface
 	/**
 	 * @return int
 	 */
-	public function getDesiredFrequency(): int;
+	public function getDesiredInterval(): int;
 }
