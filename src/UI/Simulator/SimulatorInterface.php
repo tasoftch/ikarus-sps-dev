@@ -78,7 +78,6 @@ interface SimulatorInterface
 	 * data-event        The event type, by default "click"
 	 * data-command        A string that can be retrieved from the environment -- getSentCommand()
 	 * data-value        (only input, textarea or select elements) the hold value -- getSentValue(string)
-	 * data-update        Uniquely identifies an element to be updated with values from the simulator result.
 	 * data-update-mode        Mode, how to update: val => $.val(), text => $.text() or html => $.html()
 	 *
 	 * @param EnvironmentInterface $environment
