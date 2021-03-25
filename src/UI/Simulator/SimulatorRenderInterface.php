@@ -54,7 +54,9 @@ interface SimulatorRenderInterface
 	/**
 	 * @param string|null $value
 	 * @param string|null $dynamicID
+	 * @param string|null $class
+	 * @param string|null $dynamicClassID
 	 * @return static
 	 */
-	public function addCell(string $value = NULL, string $dynamicID = NULL);
+	public function addCell(string $value, string $dynamicID = NULL, string $class = NULL, string $dynamicClassID = NULL);
 }
