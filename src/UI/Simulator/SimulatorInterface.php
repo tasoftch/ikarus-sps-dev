@@ -92,9 +92,8 @@ interface SimulatorInterface
 	 *
 	 * @param EnvironmentInterface $environment
 	 * @param SimulationResultInterface $result
-	 * @return bool
 	 */
-	public function updateSimulation(EnvironmentInterface $environment, SimulationResultInterface $result): bool;
+	public function updateSimulation(EnvironmentInterface $environment, SimulationResultInterface $result);
 
 	/**
 	 * Tears down the simulation environment and acknowledge by returning true.
