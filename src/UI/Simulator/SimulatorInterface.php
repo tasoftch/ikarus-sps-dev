@@ -75,16 +75,17 @@ interface SimulatorInterface
 	/**
 	 * Creates an initial html table row representing the simulated brick.
 	 * You may specify the following html attributes:
-	 * data-event		The event type, by default "click"
-	 * data-command		A string that can be retrieved from the environment -- getSentCommand()
-	 * data-value		(only input, textarea or select elements) the hold value -- getSentValue(string)
-	 * data-update		Uniquely identifies an element to be updated with values from the simulator result.
-	 * data-update-mode		Mode, how to update: val => $.val(), text => $.text() or html => $.html()
+	 * data-event        The event type, by default "click"
+	 * data-command        A string that can be retrieved from the environment -- getSentCommand()
+	 * data-value        (only input, textarea or select elements) the hold value -- getSentValue(string)
+	 * data-update        Uniquely identifies an element to be updated with values from the simulator result.
+	 * data-update-mode        Mode, how to update: val => $.val(), text => $.text() or html => $.html()
 	 *
 	 * @param EnvironmentInterface $environment
-	 * @return string
+	 * @param SimulatorRenderInterface $render
+	 * @return bool
 	 */
-	public function renderTableLineHTML(EnvironmentInterface $environment): string;
+	public function renderTableTemplate(EnvironmentInterface $environment, SimulatorRenderInterface $render): bool;
 
 	/**
 	 * This method gets called either frequently if an update interval is specified or by a user interaction.
