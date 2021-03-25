@@ -56,9 +56,10 @@ interface EnvironmentInterface
 	 * Returns the live user specified constructor argument value during the simulation
 	 *
 	 * @param string $name
+	 * @param null $default
 	 * @return mixed
 	 */
-	public function get(string $name);
+	public function get(string $name, $default = NULL);
 
 	/**
 	 * Returns the name of a command rendered by your html template under the attribute data-command
