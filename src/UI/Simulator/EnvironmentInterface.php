@@ -32,58 +32,46 @@
  *
  */
 
-namespace Ikarus\SPS\Dev\UI;
+namespace Ikarus\SPS\Dev\UI\Simulator;
 
 
-interface UserInfoInterface
+interface EnvironmentInterface
 {
 	/**
-	 * @return string
+	 * Finds the sent pin definitions
+	 *
+	 * @return PinDefinitionInterface[]
 	 */
-	public function getName(): string;
+	public function getPinDefinitions(): array;
 
 	/**
-	 * @return string
+	 * Finds a specific pin definition selected using the constructor argument name
+	 *
+	 * @param string $pinArgumentName
+	 * @return PinDefinitionInterface|null
 	 */
-	public function getGroup(): ?string;
+	public function getPinDefinition(string $pinArgumentName): ?PinDefinitionInterface;
 
 	/**
-	 * @return string
+	 * Returns the live user specified constructor argument value during the simulation
+	 *
+	 * @param string $name
+	 * @return mixed
 	 */
-	public function getDescription(): ?string;
+	public function get(string $name);
 
 	/**
-	 * @return Command[]
-	 */
-	public function getCommands(): array;
-
-	/**
-	 * @return Status[]
-	 */
-	public function getStatus(): array;
-
-	/**
-	 * @return Value[]
-	 */
-	public function getValues(): array;
-
-	/**
-	 * @return PinoutDefinition[]|null
-	 */
-	public function getPinoutDefinitions(): ?array;
-
-	/**
-	 * @return PluginConstructionInterface|null
-	 */
-	public function getPluginConstruction(): ?PluginConstructionInterface;
-
-	public function isReadonly(InteractionElementInterface $element): bool;
-	public function isWriteonly(InteractionElementInterface $element): bool;
-
-	/**
-	 * Enables the simulation by returning a valid simulator class name.
+	 * Returns the name of a command rendered by your html template under the attribute data-command
 	 *
 	 * @return string|null
 	 */
-	public function getSimulationClassName(): ?string;
+	public function getSentCommand(): ?string;
+
+	/**
+	 * Returns a sent value by the rendered simulation template under the attribute data-value (only input, textarea or select elements)
+	 *
+	 * @param string $name
+	 * @return mixed
+	 */
+	public function getSentValue(string $name);
 }

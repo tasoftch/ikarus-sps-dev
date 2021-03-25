@@ -32,58 +32,50 @@
  *
  */
 
-namespace Ikarus\SPS\Dev\UI;
+namespace Ikarus\SPS\Dev\UI\Simulator;
 
 
-interface UserInfoInterface
+interface SimulationResultInterface
 {
 	/**
-	 * @return string
+	 * @return bool
 	 */
-	public function getName(): string;
+	public function isSuccessful(): bool;
 
 	/**
-	 * @return string
+	 * Sets the result to successful
 	 */
-	public function getGroup(): ?string;
+	public function success();
 
 	/**
-	 * @return string
-	 */
-	public function getDescription(): ?string;
-
-	/**
-	 * @return Command[]
-	 */
-	public function getCommands(): array;
-
-	/**
-	 * @return Status[]
-	 */
-	public function getStatus(): array;
-
-	/**
-	 * @return Value[]
-	 */
-	public function getValues(): array;
-
-	/**
-	 * @return PinoutDefinition[]|null
-	 */
-	public function getPinoutDefinitions(): ?array;
-
-	/**
-	 * @return PluginConstructionInterface|null
-	 */
-	public function getPluginConstruction(): ?PluginConstructionInterface;
-
-	public function isReadonly(InteractionElementInterface $element): bool;
-	public function isWriteonly(InteractionElementInterface $element): bool;
-
-	/**
-	 * Enables the simulation by returning a valid simulator class name.
+	 * Sets the result to failed.
+	 * You may explain why the update was not successful.
+	 * Please note that calling this method will finalize the simulation.
 	 *
-	 * @return string|null
+	 * @param string|null $message
 	 */
-	public function getSimulationClassName(): ?string;
+	public function fail(string $message = NULL);
+
+	/**
+	 * Shows the user a text message until next update.
+	 *
+	 * @param string $message
+	 */
+	public function printNotice(string $message);
+
+	/**
+	 * Shows the user a warning until next update.
+	 *
+	 * @param string $message
+	 */
+	public function printWarning(string $message);
+
+	/**
+	 * Updates a html element created by the render having an attribute data-update="$name".
+	 *
+	 * @param string $name
+	 * @param $newValue
+	 * @param bool $useJSON
+	 */
+	public function updateValue(string $name, $newValue, bool $useJSON = false);
 }

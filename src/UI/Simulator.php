@@ -35,55 +35,6 @@
 namespace Ikarus\SPS\Dev\UI;
 
 
-interface UserInfoInterface
+class Simulator extends Name
 {
-	/**
-	 * @return string
-	 */
-	public function getName(): string;
-
-	/**
-	 * @return string
-	 */
-	public function getGroup(): ?string;
-
-	/**
-	 * @return string
-	 */
-	public function getDescription(): ?string;
-
-	/**
-	 * @return Command[]
-	 */
-	public function getCommands(): array;
-
-	/**
-	 * @return Status[]
-	 */
-	public function getStatus(): array;
-
-	/**
-	 * @return Value[]
-	 */
-	public function getValues(): array;
-
-	/**
-	 * @return PinoutDefinition[]|null
-	 */
-	public function getPinoutDefinitions(): ?array;
-
-	/**
-	 * @return PluginConstructionInterface|null
-	 */
-	public function getPluginConstruction(): ?PluginConstructionInterface;
-
-	public function isReadonly(InteractionElementInterface $element): bool;
-	public function isWriteonly(InteractionElementInterface $element): bool;
-
-	/**
-	 * Enables the simulation by returning a valid simulator class name.
-	 *
-	 * @return string|null
-	 */
-	public function getSimulationClassName(): ?string;
 }

@@ -32,58 +32,48 @@
  *
  */
 
-namespace Ikarus\SPS\Dev\UI;
+namespace Ikarus\SPS\Dev\UI\Simulator;
 
 
-interface UserInfoInterface
+interface PinDefinitionInterface
 {
+	const TYPE_BOARD_NUMBER = 1;
+	const TYPE_BCM_NUMBER = 2;
+	const TYPE_WPI_NUMBER = 3;
+
 	/**
+	 * Returns the uniquely pin's declaration code
+	 *
+	 * @return string
+	 */
+	public function getCode(): string;
+
+	/**
+	 * Returns the selected device pin (from pinout database)
+	 *
+	 * @param int $type
+	 * @return int|null
+	 */
+	public function getPinNumber(int $type = self::TYPE_BOARD_NUMBER): ?int;
+
+	/**
+	 * Returns the selected device i2c address (from pinout database)
+	 *
+	 * @return int|null
+	 */
+	public function getAddress(): ?int;
+
+	/**
+	 * Returns the pin name
+	 *
 	 * @return string
 	 */
 	public function getName(): string;
 
 	/**
-	 * @return string
-	 */
-	public function getGroup(): ?string;
-
-	/**
-	 * @return string
-	 */
-	public function getDescription(): ?string;
-
-	/**
-	 * @return Command[]
-	 */
-	public function getCommands(): array;
-
-	/**
-	 * @return Status[]
-	 */
-	public function getStatus(): array;
-
-	/**
-	 * @return Value[]
-	 */
-	public function getValues(): array;
-
-	/**
-	 * @return PinoutDefinition[]|null
-	 */
-	public function getPinoutDefinitions(): ?array;
-
-	/**
-	 * @return PluginConstructionInterface|null
-	 */
-	public function getPluginConstruction(): ?PluginConstructionInterface;
-
-	public function isReadonly(InteractionElementInterface $element): bool;
-	public function isWriteonly(InteractionElementInterface $element): bool;
-
-	/**
-	 * Enables the simulation by returning a valid simulator class name.
+	 * Returns a description if available
 	 *
 	 * @return string|null
 	 */
-	public function getSimulationClassName(): ?string;
+	public function getDescription(): ?string;
 }

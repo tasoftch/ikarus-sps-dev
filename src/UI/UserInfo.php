@@ -62,6 +62,9 @@ class UserInfo implements UserInfoInterface
 	/** @var Writeonly */
 	private $writeonly;
 
+	/** @var string|null */
+	private $simulator;
+
 	/**
 	 * UserInfo constructor.
 	 * @param Name|Description|Command[]|Status[]
@@ -85,6 +88,8 @@ class UserInfo implements UserInfoInterface
 				$this->description = (string)$item;
 			elseif($item instanceof Group)
 				$this->group = (string)$item;
+			elseif($item instanceof Simulator)
+				$this->simulator = (string)$item;
 			elseif($item instanceof Name)
 				$this->name = (string)$item;
 			elseif($item instanceof PluginConstructionInterface)
@@ -164,5 +169,10 @@ class UserInfo implements UserInfoInterface
 		if($this->writeonly)
 			return in_array($element->getName(), $this->writeonly->getKeys()) || in_array(get_class($element), $this->writeonly->getKeys());
 		return false;
+	}
+
+	public function getSimulationClassName(): ?string
+	{
+		return $this->simulator;
 	}
 }
