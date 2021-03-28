@@ -62,6 +62,16 @@ interface EnvironmentInterface
 	public function get(string $name, $default = NULL);
 
 	/**
+	 * Sets a value in the current simulation environment.
+	 * The values are stored in the $_SESSION variable.
+	 * Please note that value names identical of the argument names will be overridden.
+	 *
+	 * @param string $name
+	 * @param $value
+	 */
+	public function set(string $name, $value);
+
+	/**
 	 * Returns the name of a command rendered by your html template under the attribute data-command
 	 *
 	 * @return string|null
