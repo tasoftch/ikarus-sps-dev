@@ -69,7 +69,17 @@ interface EnvironmentInterface
 	 * @param string $name
 	 * @param $value
 	 */
-	public function set(string $name, $value);
+	public function setValue(string $name, $value);
+
+	/**
+	 * Fetches a value from the environment earlier set by setValue.
+	 * Those values are held over the simulation requests (using $_SESSION)
+	 *
+	 * @param string $name
+	 * @param null $default
+	 * @return mixed
+	 */
+	public function getValue(string $name, $default = NULL);
 
 	/**
 	 * Returns the name of a command rendered by your html template under the attribute data-command
