@@ -59,4 +59,16 @@ interface SimulatorRenderInterface
 	 * @return static
 	 */
 	public function addCell(string $value, string $dynamicID = NULL, string $class = NULL, string $dynamicClassID = NULL);
+
+	/**
+	 * If set, the simulator will observe the argument names still editable by the user during the simulation.
+	 * If a change happen, it will send this under the given command.
+	 * Passing no argument names will observe all.
+	 * You may assign argument names to different commands.
+	 *
+	 * @param string $command
+	 * @param array|null $argumentNames
+	 * @return static
+	 */
+	public function notifyChangesWithCommand(string $command, array $argumentNames = NULL);
 }
