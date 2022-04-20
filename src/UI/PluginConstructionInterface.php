@@ -39,6 +39,10 @@ use Skyline\HTML\Form\FormElement;
 
 interface PluginConstructionInterface
 {
+	const PIN_OPTION_RESISTOR_UP = 1<<0;
+	const PIN_OPTION_RESISTOR_DOWN = 1<<1;
+
+
 	/**
 	 * Called to setup the form
 	 *
