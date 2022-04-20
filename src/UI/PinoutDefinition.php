@@ -59,7 +59,7 @@ class PinoutDefinition extends Name
 	 *
 	 * @param string $name
 	 * @param string $definition
-	 * @param string|null $label$
+	 * @param string|null $label
 	 */
 	public function __construct(string $name, string $definition,  string $label = NULL)
 	{

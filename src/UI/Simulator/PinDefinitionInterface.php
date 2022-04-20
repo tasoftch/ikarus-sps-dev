@@ -35,7 +35,9 @@
 namespace Ikarus\SPS\Dev\UI\Simulator;
 
 
-interface PinDefinitionInterface
+use Ikarus\SPS\Access\AccessInstanceInterface;
+
+interface PinDefinitionInterface extends AccessInstanceInterface
 {
 	const TYPE_BOARD_NUMBER = 1;
 	const TYPE_BCM_NUMBER = 2;
@@ -55,13 +57,6 @@ interface PinDefinitionInterface
 	 * @return int|null
 	 */
 	public function getPinNumber(int $type = self::TYPE_BOARD_NUMBER): ?int;
-
-	/**
-	 * Returns the selected device i2c address (from pinout database)
-	 *
-	 * @return int|null
-	 */
-	public function getAddress(): ?int;
 
 	/**
 	 * Returns the pin name
