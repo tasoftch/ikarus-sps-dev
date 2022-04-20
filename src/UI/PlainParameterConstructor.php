@@ -46,6 +46,7 @@ class PlainParameterConstructor implements PluginConstructionInterface
 	private $defaults = [];
 	private $valueHandlers = [];
 	private $storageHandlers = [];
+	private $optionGens = [];
 
 	public function __construct(...$defaultFieldNames)
 	{
@@ -112,6 +113,17 @@ class PlainParameterConstructor implements PluginConstructionInterface
 	}
 
 	/**
+	 * @param $pinName
+	 * @param callable $generator
+	 * @return static
+	 */
+	public function setOptionGenerator($pinName, callable $generator) {
+		if(in_array($pinName, $this->fieldNames))
+			$this->optionGens[$pinName] = $generator;
+		return $this;
+	}
+
+	/**
 	 * @inheritDoc
 	 */
 	public function setupForm(FormElement $formElement)
@@ -156,5 +168,15 @@ class PlainParameterConstructor implements PluginConstructionInterface
 				$value = $h($value);
 		}
 		return $data ?: NULL;
+	}
+
+	/**
+	 * @inheritDoc
+	 */
+	public function getPinOptionsBeforeLinking($pinName, array $formData): int
+	{
+		if(isset($this->optionGens[$pinName]))
+			return ($this->optionGens[$pinName])($formData);
+		return 0;
 	}
 }

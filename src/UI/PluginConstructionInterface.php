@@ -76,4 +76,13 @@ interface PluginConstructionInterface
 	 * @return array|null
 	 */
 	public function getStorageFromValues(array $data): ?array;
+
+	/**
+	 * Can add some options to the pin link process such as resistor settings.
+	 *
+	 * @param string $pinName
+	 * @param array $formData
+	 * @return int
+	 */
+	public function getPinOptionsBeforeLinking($pinName, array $formData): int;
 }
