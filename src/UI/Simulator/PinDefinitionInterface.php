@@ -59,6 +59,13 @@ interface PinDefinitionInterface extends AccessInstanceInterface
 	public function getPinNumber(int $type = self::TYPE_BOARD_NUMBER): ?int;
 
 	/**
+	 * Returns the selected device i2c address (from pinout database)
+	 *
+	 * @return int|null
+	 */
+	public function getAddress(): ?int;
+
+	/**
 	 * Returns the pin name
 	 *
 	 * @return string
