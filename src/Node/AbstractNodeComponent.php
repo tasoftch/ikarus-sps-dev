@@ -36,7 +36,7 @@ namespace Ikarus\SPS\Dev\Node;
 
 abstract class AbstractNodeComponent extends \Ikarus\SPS\Procedure\Model\AbstractNodeComponent
 {
-	private $menuPath, $label;
+	private $menuPath, $label, $description;
 
 	/**
 	 * AbstractNode constructor.
@@ -49,6 +49,8 @@ abstract class AbstractNodeComponent extends \Ikarus\SPS\Procedure\Model\Abstrac
 				$this->label = $item->getName();
 			elseif($item instanceof MenuPath)
 				$this->menuPath = $item->getPath();
+			elseif($item instanceof Description)
+				$this->description = $item->getDescription();
 		}
 		parent::__construct($name, ...$items);
 	}
@@ -67,5 +69,13 @@ abstract class AbstractNodeComponent extends \Ikarus\SPS\Procedure\Model\Abstrac
 	public function getMenuPath(): ?array
 	{
 		return $this->menuPath;
+	}
+
+	/**
+	 * @return string
+	 */
+	public function getDescription(): string
+	{
+		return $this->description;
 	}
 }
