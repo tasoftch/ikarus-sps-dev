@@ -72,9 +72,9 @@ abstract class AbstractNodeComponent extends \Ikarus\SPS\Procedure\Model\Abstrac
 	}
 
 	/**
-	 * @return string
+	 * @return string|null
 	 */
-	public function getDescription(): string
+	public function getDescription(): ?string
 	{
 		return $this->description;
 	}
