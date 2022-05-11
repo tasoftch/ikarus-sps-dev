@@ -17,6 +17,7 @@
     "ikarus/sps": "^0.8",
     "skyline/html-form": "^0.8",
     "ikarus/sps-gpio-driver": "^0.8",
-    "ikarus/sps-procedure": "dev-master"
+    "ikarus/sps-procedure": "dev-master",
+    "ikarus/sps-workflow": "dev-master"
   }
 }
