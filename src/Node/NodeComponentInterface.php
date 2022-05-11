@@ -34,9 +34,6 @@
 
 namespace Ikarus\SPS\Dev\Node;
 
-use Ikarus\SPS\Dev\Node\Socket\Input;
-use Ikarus\SPS\Dev\Node\Socket\Output;
-
 interface NodeComponentInterface extends \Ikarus\SPS\Procedure\Model\NodeComponentInterface
 {
 	/**
