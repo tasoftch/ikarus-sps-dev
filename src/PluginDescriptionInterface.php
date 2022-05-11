@@ -71,6 +71,7 @@ interface PluginDescriptionInterface
 	const PLUGIN_KIND_ACTION_CONTROLLERS 		= 1<<7;
 
 	const PLUGIN_KIND_ACTION_NODE_COMPONENTS	= 1<<8;
+	const PLUGIN_KIND_WORKFLOW_COMPONENTS		= 1<<9;
 
 
 	/**
