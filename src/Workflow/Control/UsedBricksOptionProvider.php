@@ -35,6 +35,25 @@
 namespace Ikarus\SPS\Dev\Workflow\Control;
 
 
-interface ControlInterface extends \Skyline\HTML\Form\Control\ControlInterface
+use Skyline\HTML\Form\Control\Option\Provider\OptionProviderInterface;
+use TASoft\Service\ServiceManager;
+use TASoft\Util\PDO;
+
+class UsedBricksOptionProvider implements OptionProviderInterface
 {
+	public function yieldOptions(?string &$group): \Generator
+	{
+		/** @var PDO $PDO */
+		$PDO = ServiceManager::generalServiceManager()->get("PDO");
+
+		foreach($PDO->select("SELECT
+       BRICK.id,
+       BRICK.label as label,
+       D.label as groupName
+FROM ikarus_sps.BRICK
+JOIN DOMAIN D ON domain = D.id") as $record) {
+			$group = $record["groupName"];
+			yield $record['id'] => $record["label"];
+		}
+	}
 }
