@@ -36,25 +36,28 @@ namespace Ikarus\SPS\Dev\Workflow\Control;
 
 
 use Skyline\HTML\Form\Control\Option\Provider\OptionProviderInterface;
-use TASoft\Service\ServiceManager;
-use TASoft\Util\PDO;
 
-class UsedBricksOptionProvider implements OptionProviderInterface
+class ChainOptionProvider implements \Skyline\HTML\Form\Control\Option\Provider\OptionProviderInterface
 {
+	/** @var OptionProviderInterface[] */
+	private $providers = [];
+
+	public function __construct(...$optionProviders)
+	{
+		foreach($optionProviders as $provider)
+			$this->addOptionProvider($provider);
+	}
+
+	public function addOptionProvider(OptionProviderInterface $provider) {
+		$this->providers[] = $provider;
+	}
+
+	/**
+	 * @inheritDoc
+	 */
 	public function yieldOptions(?string &$group): \Generator
 	{
-		/** @var PDO $PDO */
-		$PDO = ServiceManager::generalServiceManager()->get("PDO");
-
-		foreach($PDO->select("SELECT
-    concat(D.name, '.', BRICK.name) as id,
-    BRICK.label as label,
-    D.label as groupName
-FROM ikarus_sps.BRICK
-         JOIN DOMAIN D ON domain = D.id
-ORDER BY D.label, BRICK.label") as $record) {
-			$group = $record["groupName"];
-			yield $record['id'] => $record["label"];
-		}
+		foreach($this->providers as $provider)
+			yield from $provider->yieldOptions($group);
 	}
 }
