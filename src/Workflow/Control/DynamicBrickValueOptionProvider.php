@@ -35,7 +35,7 @@
 namespace Ikarus\SPS\Dev\Workflow\Control;
 
 
-class DynamicallyBrickStatusOptionProvider implements \Skyline\HTML\Form\Control\Option\Provider\OptionProviderInterface
+class DynamicBrickValueOptionProvider implements \Skyline\HTML\Form\Control\Option\Provider\OptionProviderInterface
 {
 
 	/**
