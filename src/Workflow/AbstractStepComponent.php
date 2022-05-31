@@ -34,9 +34,10 @@
 
 namespace Ikarus\SPS\Dev\Workflow;
 
-use Ikarus\SPS\Dev\Workflow\Control\ControlInterface;
+use Ikarus\SPS\Workflow\Model\StepComponentCompilerInterface;
+use Skyline\HTML\Form\Control\ControlInterface;
 
-abstract class AbstractStepComponent extends \Ikarus\SPS\Workflow\Model\AbstractStepComponent
+abstract class AbstractStepComponent extends \Ikarus\SPS\Workflow\Model\AbstractStepComponent implements StepComponentCompilerInterface
 {
 	/** @var ControlInterface[] */
 	private $controls = [];
