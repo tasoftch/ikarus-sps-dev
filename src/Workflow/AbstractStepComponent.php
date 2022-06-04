@@ -47,7 +47,7 @@ abstract class AbstractStepComponent extends \Ikarus\SPS\Workflow\Model\Abstract
 			if($item instanceof ControlInterface)
 				$this->controls[$item->getName()] = $item;
 		}
-		parent::__construct($componentName, $items);
+		parent::__construct($componentName, ... $items);
 	}
 
 	/**

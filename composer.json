@@ -19,6 +19,7 @@
     "ikarus/sps-gpio-driver": "^0.8",
     "ikarus/sps-procedure": "dev-master",
     "ikarus/sps-workflow": "dev-master",
+    "ikarus/sps-relations": "dev-master",
     "tasoft/php-pdo": "^0.8"
   }
 }
