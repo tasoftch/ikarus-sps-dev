@@ -47,7 +47,7 @@ class UsedBricksOptionProvider implements OptionProviderInterface
 		$PDO = ServiceManager::generalServiceManager()->get("PDO");
 
 		foreach($PDO->select("SELECT
-    concat(D.name, '.', BRICK.name) as id,
+    BRICK.id as id,
     BRICK.label as label,
     D.label as groupName
 FROM ikarus_sps.BRICK

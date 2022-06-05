@@ -35,7 +35,10 @@
 namespace Ikarus\SPS\Dev\Workflow\Control;
 
 
-class DynamicBrickStatusOptionProvider implements \Skyline\HTML\Form\Control\Option\Provider\OptionProviderInterface
+use TASoft\Service\ServiceManager;
+use TASoft\Util\PDO;
+
+class UsedAlertsOptionProvider implements \Skyline\HTML\Form\Control\Option\Provider\OptionProviderInterface
 {
 
 	/**
@@ -43,6 +46,18 @@ class DynamicBrickStatusOptionProvider implements \Skyline\HTML\Form\Control\Opt
 	 */
 	public function yieldOptions(?string &$group): \Generator
 	{
-		yield NULL;
+		/** @var PDO $PDO */
+		$PDO = ServiceManager::generalServiceManager()->get("PDO");
+
+		foreach($PDO->select("SELECT
+concat(D.name, '.', ALERT.name) as id,
+       title as label,
+       D.label as groupName
+FROM ikarus_sps.ALERT
+JOIN DOMAIN D ON domain = D.id
+ORDER BY D.label, title") as $record) {
+			$group = $record["groupName"];
+			yield $record['id'] => $record["label"];
+		}
 	}
 }
