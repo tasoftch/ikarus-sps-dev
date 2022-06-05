@@ -32,57 +32,11 @@
  *
  */
 
-namespace Ikarus\SPS\Dev\Workflow;
+namespace Ikarus\SPS\Dev\Workflow\Model;
 
-use Ikarus\SPS\Dev\Workflow\Model\Group;
-use Ikarus\SPS\Dev\Workflow\Model\Tag;
-use Skyline\HTML\Form\Control\ControlInterface;
 
-abstract class AbstractStepComponent extends \Ikarus\SPS\Workflow\Model\AbstractStepComponent
+use Ikarus\SPS\Workflow\Model\Label;
+
+class Tag extends Label
 {
-	/** @var ControlInterface[] */
-	private $controls = [];
-	private $groupName;
-	private $tags = [];
-
-	public function __construct(string $componentName, ...$items)
-	{
-		foreach($items as &$item) {
-			if($item instanceof ControlInterface)
-				$this->controls[$item->getName()] = $item;
-			if($item instanceof Group) {
-				$this->groupName = $item->getName();
-				$item=NULL;
-			}
-			if($item instanceof Tag) {
-				$this->tags[] = $item->getName();
-				$item = NULL;
-			}
-		}
-		parent::__construct($componentName, ... $items);
-	}
-
-	/**
-	 * @return ControlInterface[]
-	 */
-	public function getControls(): array
-	{
-		return $this->controls;
-	}
-
-	/**
-	 * @return mixed
-	 */
-	public function getGroupName()
-	{
-		return $this->groupName;
-	}
-
-	/**
-	 * @return array
-	 */
-	public function getTags(): array
-	{
-		return $this->tags;
-	}
 }
