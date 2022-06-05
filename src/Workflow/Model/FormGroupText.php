@@ -46,7 +46,7 @@ class FormGroupText implements \Skyline\HTML\Form\Control\ControlInterface
 		$this->value  = $value;
 	}
 
-	public function getName(){}
+	public function getName(){return uniqid();}
 	public function getID(){}
 	public function setValue($value){$this->value = $value;}
 	public function getValue(){return $this->value;}

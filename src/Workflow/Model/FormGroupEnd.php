@@ -39,7 +39,7 @@ use Skyline\HTML\Form\FormElement;
 
 class FormGroupEnd implements \Skyline\HTML\Form\Control\ControlInterface
 {
-	public function getName(){}
+	public function getName(){return uniqid();}
 	public function getID(){}
 	public function setValue($value){$this->value = $value;}
 	public function getValue(){return NULL; }

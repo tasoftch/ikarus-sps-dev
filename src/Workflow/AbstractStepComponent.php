@@ -45,8 +45,6 @@ abstract class AbstractStepComponent extends \Ikarus\SPS\Workflow\Model\Abstract
 	private $controls = [];
 	private $groupName;
 	private $tags = [];
-	/** @var array */
-	private $groupings = [];
 
 	public function __construct(string $componentName, ...$items)
 	{
@@ -57,8 +55,6 @@ abstract class AbstractStepComponent extends \Ikarus\SPS\Workflow\Model\Abstract
 				$this->groupName = $item->getName();
 				$item=NULL;
 			}
-			if($item instanceof FormGroup)
-				$this->groupings[] = $item;
 
 			if($item instanceof Tag) {
 				$this->tags[] = $item->getName();
@@ -90,13 +86,5 @@ abstract class AbstractStepComponent extends \Ikarus\SPS\Workflow\Model\Abstract
 	public function getTags(): array
 	{
 		return $this->tags;
-	}
-
-	/**
-	 * @return array
-	 */
-	public function getGroupings(): array
-	{
-		return $this->groupings;
 	}
 }
