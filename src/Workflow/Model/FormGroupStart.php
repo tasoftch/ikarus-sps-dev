@@ -35,25 +35,16 @@
 namespace Ikarus\SPS\Dev\Workflow\Model;
 
 
-class FormGroup
+use Skyline\HTML\Form\FormElement;
+
+class FormGroupStart implements \Skyline\HTML\Form\Control\ControlInterface
 {
-	/** @var array */
-	private $groupedElements;
-
-	/**
-	 * FormGroup constructor.
-	 * @param array $groupedElements
-	 */
-	public function __construct(array $groupedElements)
-	{
-		$this->groupedElements = $groupedElements;
-	}
-
-	/**
-	 * @return array
-	 */
-	public function getGroupedElements(): array
-	{
-		return $this->groupedElements;
-	}
+	public function getName(){}
+	public function getID(){}
+	public function setValue($value){$this->value = $value;}
+	public function getValue(){return NULL; }
+	public function validate(){}
+	public function reset(){}
+	public function getForm(): ?FormElement{return NULL;}
+	public function setForm(FormElement $formElement){}
 }
