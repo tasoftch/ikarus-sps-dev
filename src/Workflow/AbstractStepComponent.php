@@ -46,7 +46,7 @@ abstract class AbstractStepComponent extends \Ikarus\SPS\Workflow\Model\Abstract
 	private $groupName;
 	private $tags = [];
 	/** @var array */
-	private $groupings;
+	private $groupings = [];
 
 	public function __construct(string $componentName, ...$items)
 	{
