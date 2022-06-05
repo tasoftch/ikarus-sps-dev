@@ -32,71 +32,28 @@
  *
  */
 
-namespace Ikarus\SPS\Dev\Workflow;
+namespace Ikarus\SPS\Dev\Workflow\Model;
 
-use Ikarus\SPS\Dev\Workflow\Model\FormGroup;
-use Ikarus\SPS\Dev\Workflow\Model\Group;
-use Ikarus\SPS\Dev\Workflow\Model\Tag;
-use Skyline\HTML\Form\Control\ControlInterface;
 
-abstract class AbstractStepComponent extends \Ikarus\SPS\Workflow\Model\AbstractStepComponent
+class FormGroup
 {
-	/** @var ControlInterface[] */
-	private $controls = [];
-	private $groupName;
-	private $tags = [];
 	/** @var array */
-	private $groupings;
-
-	public function __construct(string $componentName, ...$items)
-	{
-		foreach($items as &$item) {
-			if($item instanceof ControlInterface)
-				$this->controls[$item->getName()] = $item;
-			if($item instanceof Group) {
-				$this->groupName = $item->getName();
-				$item=NULL;
-			}
-			if($item instanceof FormGroup)
-				$this->groupings[] = $item;
-
-			if($item instanceof Tag) {
-				$this->tags[] = $item->getName();
-				$item = NULL;
-			}
-		}
-		parent::__construct($componentName, ... $items);
-	}
+	private $groupedElements;
 
 	/**
-	 * @return ControlInterface[]
+	 * FormGroup constructor.
+	 * @param array $groupedElements
 	 */
-	public function getControls(): array
+	public function __construct(array $groupedElements)
 	{
-		return $this->controls;
-	}
-
-	/**
-	 * @return mixed
-	 */
-	public function getGroupName()
-	{
-		return $this->groupName;
+		$this->groupedElements = $groupedElements;
 	}
 
 	/**
 	 * @return array
 	 */
-	public function getTags(): array
+	public function getGroupedElements(): array
 	{
-		return $this->tags;
-	}
-
-	/**
-	 * @return array
-	 */
-	public function getGroupings(): array
-	{
-		return $this->groupings;
+		return $this->groupedElements;
 	}
 }
