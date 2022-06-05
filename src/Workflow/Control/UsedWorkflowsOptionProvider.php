@@ -41,7 +41,7 @@ use TASoft\Util\PDO;
 
 class UsedWorkflowsOptionProvider implements OptionProviderInterface
 {
-	public $current_workflow = 0;
+	public static $current_workflow = 0;
 
 	public function yieldOptions(?string &$group): \Generator
 	{
@@ -54,7 +54,7 @@ class UsedWorkflowsOptionProvider implements OptionProviderInterface
        DOMAIN.label as groupName
 FROM ikarus_sps.WORKFLOW
 LEFT JOIN ikarus_sps.DOMAIN On domain = DOMAIN.id
-WHERE WORKFLOW.id != ?", [$this->current_workflow]) as $record) {
+WHERE WORKFLOW.id != ?", [self::$current_workflow]) as $record) {
 			$group = $record["groupName"];
 			yield $record['id'] => $record["label"];
 		}
