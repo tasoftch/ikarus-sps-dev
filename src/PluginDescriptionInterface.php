@@ -50,9 +50,10 @@ interface PluginDescriptionInterface
 	const PLACEMENT_BEFORE_RELATIONS = 1<<4;
 	const PLACEMENT_AFTER_RELATIONS = 1<<5;
 
-	const PLACEMENT_CYCLE_END = 1<<6;
+	const PLACEMENT_BEFORE_WORKFLOWS = 1<<6;
+	const PLACEMENT_AFTER_WORKFLOWS = 1<<7;
 
-	const PLACEMENT_END = 1<<7;
+	const PLACEMENT_CYCLE_END = 1<<8;
 
 	const OPTION_PIN_AS_BOARD = 1<<0;
 	const OPTION_PIN_AS_BCM = 1<<1;
