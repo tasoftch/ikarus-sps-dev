@@ -58,8 +58,7 @@ interface PluginDescriptionInterface
 	const OPTION_PIN_AS_BOARD = 1<<0;
 	const OPTION_PIN_AS_BCM = 1<<1;
 	const OPTION_PIN_AS_WPI = 1<<2;
-
-	const OPTION_SPAWNED = 1<<8;
+	const OPTION_PIN_AS_GPIO_ACCESS = 1<<3;
 
 
 	const PLUGIN_KIND_PLUGINS 					= 1<<0;
