@@ -34,40 +34,10 @@
 
 namespace Ikarus\SPS\Dev\UI;
 
-class Control extends Name
+class ControlYesNo extends ControlList
 {
-	const TYPE_STRING = 'text';
-	const TYPE_NUMBER = 'number';
-	const TYPE_LIST = 'list';
-
-	const TYPE_GPIO = 'gpio';
-
-	private $type;
-	private $required;
-
-	/** @var null|UserInfoInterface */
-	public $userInfo;
-
-	public function __construct(string $name, string $type, bool $required = false)
+	public function __construct(string $name, string $yes = 'YES', string $no = 'NO', bool $required = false)
 	{
-		parent::__construct($name);
-		$this->type = $type;
-		$this->required = $required;
-	}
-
-	/**
-	 * @return string
-	 */
-	public function getType(): string
-	{
-		return $this->type;
-	}
-
-	/**
-	 * @return bool
-	 */
-	public function isRequired(): bool
-	{
-		return $this->required;
+		parent::__construct($name, [0 => $no, 1 => $yes], $required);
 	}
 }
