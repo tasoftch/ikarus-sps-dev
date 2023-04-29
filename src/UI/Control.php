@@ -41,6 +41,8 @@ class Control extends Name
 	const TYPE_BOOL = 'bool';
 	const TYPE_LIST = 'list';
 
+	const TYPE_GPIO = 'gpio';
+
 	private $type;
 	private $required;
 
