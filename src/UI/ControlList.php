@@ -38,10 +38,10 @@ use Ikarus\SPS\Dev\UI\Option\ControlOptionGeneratorInterface;
 
 class ControlList extends Control
 {
-	/** @var ControlOptionGeneratorInterface */
+	/** @var ControlOptionGeneratorInterface|array */
 	private $list;
 
-	public function __construct(string $name, ControlOptionGeneratorInterface $list, bool $required = false)
+	public function __construct(string $name, $list, bool $required = false)
 	{
 		parent::__construct($name, self::TYPE_LIST, $required);
 		$this->list = $list;
@@ -49,9 +49,9 @@ class ControlList extends Control
 
 
 	/**
-	 * @return ControlOptionGeneratorInterface
+	 * @return ControlOptionGeneratorInterface|array
 	 */
-	public function getList(): ControlOptionGeneratorInterface
+	public function getList()
 	{
 		return $this->list;
 	}
