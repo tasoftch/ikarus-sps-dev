@@ -32,52 +32,32 @@
  *
  */
 
-namespace Ikarus\SPS\Dev\UI;
+namespace Ikarus\SPS\Dev\UI\Option;
 
-interface PluginConstructionInterface
+class CallbackOptionFilter implements OptionFilterInterface
 {
-	/**
-	 * @return Control[]
-	 */
-	public function getControls(): array;
+	/** @var callable $callback */
+	private $callback;
 
 	/**
-	 * Use this default values if no data was stored.
-	 * This method also identifies the keys used by the construction
-	 *
-	 * @return array
+	 * @param callable $callback
 	 */
-	public function getDefaultValues(): array;
+	public function __construct(callable $callback)
+	{
+		$this->callback = $callback;
+	}
+
+	public function acceptsValue($id, $label, $group): bool
+	{
+		return ($this->getCallback())($id, $label, $group);
+	}
+
 
 	/**
-	 * Specify the labels for human reading of the values
-	 *
-	 * @return array
+	 * @return callable
 	 */
-	public function getDefaultValueLabels(): array;
-
-	/**
-	 * Called to map the persistent values into the form
-	 *
-	 * @param array $data
-	 * @return array|null
-	 */
-	public function getValuesFromStorage(array $data): ?array;
-
-	/**
-	 * Called to remap the form's values into the storage.
-	 *
-	 * @param array $data
-	 * @return array|null
-	 */
-	public function getStorageFromValues(array $data): ?array;
-
-	/**
-	 * Can add some options to the pin link process such as resistor settings.
-	 *
-	 * @param string $pinName
-	 * @param array $formData
-	 * @return int
-	 */
-	public function getPinOptionsBeforeLinking($pinName, array $formData): int;
+	public function getCallback(): callable
+	{
+		return $this->callback;
+	}
 }

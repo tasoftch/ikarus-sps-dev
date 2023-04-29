@@ -78,15 +78,17 @@ class UserInfo implements UserInfoInterface
 			elseif($item instanceof Status)
 				$this->status[] = $item;
 			elseif($item instanceof PinoutDefinition)
-				$this->pinoutDefinitions[] = $item;
+				$this->pinoutDefinitions[ $item->getName() ] = $item;
 			elseif($item instanceof Command)
 				$this->commands[] = $item;
 			elseif($item instanceof Description)
 				$this->description = (string)$item;
 			elseif($item instanceof Group)
 				$this->group = (string)$item;
-			elseif($item instanceof Control && $this->construction instanceof PlainParameterConstructor)
+			elseif($item instanceof Control && $this->construction instanceof PlainParameterConstructor) {
+				$item->userInfo = $this;
 				$this->construction->setControl($item);
+			}
 			elseif($item instanceof Name)
 				$this->name = (string)$item;
 			elseif($item instanceof PluginConstructionInterface)

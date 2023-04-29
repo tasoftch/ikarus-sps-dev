@@ -32,52 +32,25 @@
  *
  */
 
-namespace Ikarus\SPS\Dev\UI;
+namespace Ikarus\SPS\Dev\UI\Option\Pinout;
 
-interface PluginConstructionInterface
+use Ikarus\SPS\Dev\UI\Control;
+use Ikarus\SPS\Dev\UI\Option\AbstractRuntimeBoundGenerator;
+
+class DefinedPinOptionGenerator extends AbstractRuntimeBoundGenerator
 {
-	/**
-	 * @return Control[]
-	 */
-	public function getControls(): array;
+	public function getBindInformation(Control $control): array
+	{
+		if($control->userInfo) {
+			$defs = $control->userInfo->getPinoutDefinitions();
+			if($pd = $defs[ $control->getName() ] ?? NULL) {
+				return [
+					'pin' => $control->getName(),
+					'def' => $pd->getDefinition()
+				];
+			}
+		}
+		return [];
+	}
 
-	/**
-	 * Use this default values if no data was stored.
-	 * This method also identifies the keys used by the construction
-	 *
-	 * @return array
-	 */
-	public function getDefaultValues(): array;
-
-	/**
-	 * Specify the labels for human reading of the values
-	 *
-	 * @return array
-	 */
-	public function getDefaultValueLabels(): array;
-
-	/**
-	 * Called to map the persistent values into the form
-	 *
-	 * @param array $data
-	 * @return array|null
-	 */
-	public function getValuesFromStorage(array $data): ?array;
-
-	/**
-	 * Called to remap the form's values into the storage.
-	 *
-	 * @param array $data
-	 * @return array|null
-	 */
-	public function getStorageFromValues(array $data): ?array;
-
-	/**
-	 * Can add some options to the pin link process such as resistor settings.
-	 *
-	 * @param string $pinName
-	 * @param array $formData
-	 * @return int
-	 */
-	public function getPinOptionsBeforeLinking($pinName, array $formData): int;
 }

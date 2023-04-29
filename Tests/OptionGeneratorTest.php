@@ -32,52 +32,58 @@
  *
  */
 
-namespace Ikarus\SPS\Dev\UI;
+use Ikarus\SPS\Dev\UI\Option\CallbackOptionFilter;
+use Ikarus\SPS\Dev\UI\Option\Pinout\DefinedPinOptionGenerator;
+use PHPUnit\Framework\TestCase;
 
-interface PluginConstructionInterface
+class OptionGeneratorTest extends TestCase
 {
-	/**
-	 * @return Control[]
-	 */
-	public function getControls(): array;
+	public function testGeneratorWithoutFilters() {
+		$og = new DefinedPinOptionGenerator();
 
-	/**
-	 * Use this default values if no data was stored.
-	 * This method also identifies the keys used by the construction
-	 *
-	 * @return array
-	 */
-	public function getDefaultValues(): array;
+		$og->bindGenerator(function(&$g) {
+			$g = 1;
+			yield 4 => 89;
 
-	/**
-	 * Specify the labels for human reading of the values
-	 *
-	 * @return array
-	 */
-	public function getDefaultValueLabels(): array;
+			$g = 3;
+			yield 9 => 190;
+		});
 
-	/**
-	 * Called to map the persistent values into the form
-	 *
-	 * @param array $data
-	 * @return array|null
-	 */
-	public function getValuesFromStorage(array $data): ?array;
+		foreach($og->yieldOptions($myGroup) as $id => $label) {
+			if($id == 4) {
+				$this->assertEquals(89, $label);
+				$this->assertEquals(1, $myGroup);
+			} elseif(9) {
+				$this->assertEquals(190, $label);
+				$this->assertEquals(3, $myGroup);
+			} else
+				$this->assertTrue(false);
+		}
+	}
 
-	/**
-	 * Called to remap the form's values into the storage.
-	 *
-	 * @param array $data
-	 * @return array|null
-	 */
-	public function getStorageFromValues(array $data): ?array;
+	public function testGeneratorWithFilters() {
+		$og = new DefinedPinOptionGenerator(new CallbackOptionFilter(function($id, $label, $group) {
+			if($id == 9)
+				return false;
+			return true;
+		}));
 
-	/**
-	 * Can add some options to the pin link process such as resistor settings.
-	 *
-	 * @param string $pinName
-	 * @param array $formData
-	 * @return int
-	 */
-	public function getPinOptionsBeforeLinking($pinName, array $formData): int;
+		$og->bindGenerator(function(&$g) {
+			$g = 1;
+			yield 4 => 89;
+
+			$g = 3;
+			yield 9 => 190;
+		});
+
+		foreach($og->yieldOptions($myGroup) as $id => $label) {
+			if($id == 4) {
+				$this->assertEquals(89, $label);
+				$this->assertEquals(1, $myGroup);
+			} else {
+				echo "$myGroup $id $label";
+				$this->assertTrue(false);
+			}
+		}
+	}
 }

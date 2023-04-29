@@ -21,5 +21,8 @@
     "ikarus/sps-relations": "dev-master",
     "ikarus/sps-simulation": "dev-master",
     "tasoft/php-pdo": "^0.8"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^6|^9"
   }
 }

@@ -34,8 +34,46 @@
 
 namespace Ikarus\SPS\Dev\UI\Option;
 
+use Generator;
+use Ikarus\SPS\Dev\UI\Control;
 
-class FreePinsOptionProvider extends AllPinsOptionProvider
+abstract class AbstractRuntimeBoundGenerator implements ControlOptionGeneratorInterface
 {
-	protected $mods = ['free'];
+	private $callback;
+	private $filters = [];
+
+	/**
+	 * @param array $filters
+	 */
+	public function __construct(OptionFilterInterface ... $filters)
+	{
+		$this->filters = $filters;
+	}
+
+
+	public function yieldOptions(&$group = NULL)
+	{
+		if($this->filters) {
+			foreach(($this->callback)($group) as $id => $label) {
+				foreach($this->filters as $filter) {
+					if(!$filter->acceptsValue($id, $label, $group))
+						continue 2;
+				}
+				yield $id => $label;
+			}
+		} else {
+			yield from ($this->callback)($group);
+		}
+	}
+
+	public function bindGenerator(callable $callback) {
+		$this->callback = $callback;
+	}
+
+	/**
+	 * Declares information to late runtime binding
+	 *
+	 * @return array
+	 */
+	abstract public function getBindInformation(Control $control): array;
 }

@@ -32,41 +32,27 @@
  *
  */
 
-namespace Ikarus\SPS\Dev\UI\Option;
+namespace Ikarus\SPS\Dev\UI;
 
+use Ikarus\SPS\Dev\UI\Option\ControlOptionGeneratorInterface;
 
-use Skyline\HTML\Form\Control\Option\Provider\OptionProviderInterface;
-
-class AllPinsOptionProvider implements OptionProviderInterface
+class ControlList extends Control
 {
-	const PIN_ALL_GPIO = -1;
-	const PIN_ANY_GPIO = -2;
+	/** @var ControlOptionGeneratorInterface */
+	private $list;
 
-
-	/** @var callable This factory gets injected by Ikarus SPS Web Interface */
-	protected static $factory;
-
-	/** @var int|array */
-	private $acceptedPins;
-
-	protected $mods = ['all'];
-
-	public function __construct($acceptedPins = self::PIN_ALL_GPIO)
+	public function __construct(string $name, ControlOptionGeneratorInterface $list, bool $required = false)
 	{
-		$this->acceptedPins = $acceptedPins;
+		parent::__construct($name, self::TYPE_LIST, $required);
+		$this->list = $list;
 	}
 
-	public function yieldOptions(?string &$group): \Generator
-	{
-		yield from (self::$factory)($this->getAcceptedPins(), $this->mods, $group);
-	}
 
 	/**
-	 * @return array|int
+	 * @return ControlOptionGeneratorInterface
 	 */
-	public function getAcceptedPins()
+	public function getList(): ControlOptionGeneratorInterface
 	{
-		return $this->acceptedPins;
+		return $this->list;
 	}
-
 }

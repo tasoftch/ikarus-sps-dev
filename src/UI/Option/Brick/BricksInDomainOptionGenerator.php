@@ -32,52 +32,31 @@
  *
  */
 
-namespace Ikarus\SPS\Dev\UI;
+namespace Ikarus\SPS\Dev\UI\Option\Brick;
 
-interface PluginConstructionInterface
+use Ikarus\SPS\Dev\UI\Control;
+use Ikarus\SPS\Dev\UI\Option\OptionFilterInterface;
+
+class BricksInDomainOptionGenerator extends \Ikarus\SPS\Dev\UI\Option\AbstractRuntimeBoundGenerator
 {
-	/**
-	 * @return Control[]
-	 */
-	public function getControls(): array;
+	private $domain;
+
+	public function __construct(string $domain, OptionFilterInterface ...$filters)
+	{
+		parent::__construct(... $filters);
+		$this->domain = $domain;
+	}
+
 
 	/**
-	 * Use this default values if no data was stored.
-	 * This method also identifies the keys used by the construction
-	 *
-	 * @return array
+	 * @inheritDoc
 	 */
-	public function getDefaultValues(): array;
-
-	/**
-	 * Specify the labels for human reading of the values
-	 *
-	 * @return array
-	 */
-	public function getDefaultValueLabels(): array;
-
-	/**
-	 * Called to map the persistent values into the form
-	 *
-	 * @param array $data
-	 * @return array|null
-	 */
-	public function getValuesFromStorage(array $data): ?array;
-
-	/**
-	 * Called to remap the form's values into the storage.
-	 *
-	 * @param array $data
-	 * @return array|null
-	 */
-	public function getStorageFromValues(array $data): ?array;
-
-	/**
-	 * Can add some options to the pin link process such as resistor settings.
-	 *
-	 * @param string $pinName
-	 * @param array $formData
-	 * @return int
-	 */
-	public function getPinOptionsBeforeLinking($pinName, array $formData): int;
+	public function getBindInformation(Control $control): array
+	{
+		return [
+			"sps" => 'bricks',
+			'mode' => 'filter',
+			'domain' => $this->domain
+		];
+	}
 }

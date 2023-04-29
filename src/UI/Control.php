@@ -46,31 +46,14 @@ class Control extends Name
 	private $type;
 	private $required;
 
-	private $list;
-
-	private static $default_list_generator;
+	/** @var null|UserInfoInterface */
+	public $userInfo;
 
 	public function __construct(string $name, string $type, bool $required = false)
 	{
 		parent::__construct($name);
 		$this->type = $type;
 		$this->required = $required;
-	}
-
-	/**
-	 * @return callable
-	 */
-	public static function getDefaultListGenerator(): ?callable
-	{
-		return self::$default_list_generator;
-	}
-
-	/**
-	 * @param callable $default_list_generator
-	 */
-	public static function setDefaultListGenerator(callable $default_list_generator): void
-	{
-		self::$default_list_generator = $default_list_generator;
 	}
 
 	/**
@@ -87,24 +70,5 @@ class Control extends Name
 	public function isRequired(): bool
 	{
 		return $this->required;
-	}
-
-	/**
-	 * @return null|string|array|callable
-	 */
-	public function getList()
-	{
-		if($this->type == self::TYPE_LIST && !$this->list && self::$default_list_generator)
-			return (self::getDefaultListGenerator())($this);
-		return $this->list;
-	}
-
-	/**
-	 * @param string|array|callable $list
-	 */
-	public function setList($list)
-	{
-		$this->list = $list;
-		return $this;
 	}
 }

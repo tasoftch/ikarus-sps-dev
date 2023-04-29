@@ -53,6 +53,7 @@ class PlainParameterConstructor implements PluginConstructionInterface
 		foreach($defaultFieldNames as $name) {
 			$this->fieldNames[$name] = $name;
 			$this->defaults[$name] = NULL;
+			$this->labels[$name] = ucwords($name);
 		}
 
 		$this->fieldNames = array_values($this->fieldNames);
@@ -61,6 +62,7 @@ class PlainParameterConstructor implements PluginConstructionInterface
 	/**
 	 * @param Control $control
 	 * @return static
+	 * @internal Add controls directly by the UserInfo creation.
 	 */
 	public function setControl(Control $control) {
 		if(in_array($control->getName(), $this->fieldNames))
@@ -121,16 +123,6 @@ class PlainParameterConstructor implements PluginConstructionInterface
 		if(in_array($pinName, $this->fieldNames))
 			$this->optionGens[$pinName] = $generator;
 		return $this;
-	}
-
-	/**
-	 * @inheritDoc
-	 */
-	public function setupForm(FormElement $formElement)
-	{
-		foreach($this->controls as $control) {
-			$formElement->appendElement( $control );
-		}
 	}
 
 	public function getDefaultValueLabels(): array

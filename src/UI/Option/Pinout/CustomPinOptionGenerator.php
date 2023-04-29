@@ -32,16 +32,34 @@
  *
  */
 
-namespace Ikarus\SPS\Dev\UI\Option;
+namespace Ikarus\SPS\Dev\UI\Option\Pinout;
 
+use Ikarus\SPS\Dev\UI\Control;
+use Ikarus\SPS\Dev\UI\Option\AbstractRuntimeBoundGenerator;
+use Ikarus\SPS\Dev\UI\Option\OptionFilterInterface;
 
-class PinoutDefinitionOptionProvider extends AllPinsOptionProvider
+class CustomPinOptionGenerator extends AbstractRuntimeBoundGenerator
 {
-	protected $mods = ['free'];
+	/** @var string */
+	private $definition;
 
-	public function __construct($definition)
+	/**
+	 * @param string $definition
+	 */
+	public function __construct(string $definition, OptionFilterInterface ... $filters)
 	{
-		parent::__construct();
-		$this->mods[] = $definition;
+		parent::__construct( ... $filters );
+		$this->definition = $definition;
+	}
+
+	/**
+	 * @inheritDoc
+	 */
+	public function getBindInformation(Control $control): array
+	{
+		return [
+			'pin' => $control->getName(),
+			'def' => $this->definition
+		];
 	}
 }
