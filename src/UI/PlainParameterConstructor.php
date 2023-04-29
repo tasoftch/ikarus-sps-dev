@@ -2,7 +2,7 @@
 /*
  * BSD 3-Clause License
  *
- * Copyright (c) 2021, TASoft Applications
+ * Copyright (c) 2023, TASoft Applications
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -59,10 +59,10 @@ class PlainParameterConstructor implements PluginConstructionInterface
 	}
 
 	/**
-	 * @param $name
+	 * @param Control $control
 	 * @return static
 	 */
-	public function setControl(ControlInterface $control) {
+	public function setControl(Control $control) {
 		if(in_array($control->getName(), $this->fieldNames))
 			$this->controls[$control->getName()] = $control;
 		return $this;
@@ -178,5 +178,10 @@ class PlainParameterConstructor implements PluginConstructionInterface
 		if(isset($this->optionGens[$pinName]))
 			return ($this->optionGens[$pinName])($formData);
 		return 0;
+	}
+
+	public function getControls(): array
+	{
+		return $this->controls;
 	}
 }

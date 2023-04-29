@@ -34,52 +34,75 @@
 
 namespace Ikarus\SPS\Dev\UI;
 
-
-use Skyline\HTML\Form\FormElement;
-
-interface PluginConstructionInterface
+class Control extends Name
 {
-	/**
-	 * @return Control[]
-	 */
-	public function getControls(): array;
-	/**
-	 * Use this default values if no data was stored.
-	 * This method also identifies the keys used by the construction
-	 *
-	 * @return array
-	 */
-	public function getDefaultValues(): array;
+	const TYPE_STRING = 'text';
+	const TYPE_NUMBER = 'number';
+	const TYPE_BOOL = 'bool';
+	const TYPE_LIST = 'list';
+
+	private $type;
+	private $required;
+
+	private $list;
+
+	private static $default_list_generator;
+
+	public function __construct(string $name, string $type, bool $required = false)
+	{
+		parent::__construct($name);
+		$this->type = $type;
+		$this->required = $required;
+	}
 
 	/**
-	 * Specify the labels for human reading of the values
-	 *
-	 * @return array
+	 * @return callable
 	 */
-	public function getDefaultValueLabels(): array;
+	public static function getDefaultListGenerator(): ?callable
+	{
+		return self::$default_list_generator;
+	}
 
 	/**
-	 * Called to map the persistent values into the form
-	 *
-	 * @param array $data
-	 * @return array|null
+	 * @param callable $default_list_generator
 	 */
-	public function getValuesFromStorage(array $data): ?array;
+	public static function setDefaultListGenerator(callable $default_list_generator): void
+	{
+		self::$default_list_generator = $default_list_generator;
+	}
 
 	/**
-	 * Called to remap the form's values into the storage.
-	 *
-	 * @param array $data
-	 * @return array|null
+	 * @return string
 	 */
-	public function getStorageFromValues(array $data): ?array;
+	public function getType(): string
+	{
+		return $this->type;
+	}
 
 	/**
-	 * Can add some options to the pin link process such as resistor settings.
-	 *
-	 * @param string $pinName
-	 * @param array $formData
-	 * @return int
+	 * @return bool
 	 */
-	public function getPinOptionsBeforeLinking($pinName, array $formData): int;
+	public function isRequired(): bool
+	{
+		return $this->required;
+	}
+
+	/**
+	 * @return null|string|array|callable
+	 */
+	public function getList()
+	{
+		if($this->type == self::TYPE_LIST && !$this->list && self::$default_list_generator)
+			return (self::getDefaultListGenerator())($this);
+		return $this->list;
+	}
+
+	/**
+	 * @param string|array|callable $list
+	 */
+	public function setList($list)
+	{
+		$this->list = $list;
+		return $this;
+	}
 }

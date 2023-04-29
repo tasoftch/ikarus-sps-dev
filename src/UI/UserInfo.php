@@ -85,6 +85,8 @@ class UserInfo implements UserInfoInterface
 				$this->description = (string)$item;
 			elseif($item instanceof Group)
 				$this->group = (string)$item;
+			elseif($item instanceof Control && $this->construction instanceof PlainParameterConstructor)
+				$this->construction->setControl($item);
 			elseif($item instanceof Name)
 				$this->name = (string)$item;
 			elseif($item instanceof PluginConstructionInterface)
