@@ -34,7 +34,6 @@
 
 namespace Ikarus\SPS\Dev\Workflow;
 
-use Ikarus\SPS\Dev\Workflow\Model\FormGroup;
 use Ikarus\SPS\Dev\Workflow\Model\Group;
 use Ikarus\SPS\Dev\Workflow\Model\Tag;
 use Skyline\HTML\Form\Control\ControlInterface;
