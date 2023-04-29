@@ -2,7 +2,7 @@
 /*
  * BSD 3-Clause License
  *
- * Copyright (c) 2021, TASoft Applications
+ * Copyright (c) 2023, TASoft Applications
  * All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
@@ -79,11 +79,4 @@ interface UserInfoInterface
 
 	public function isReadonly(InteractionElementInterface $element): bool;
 	public function isWriteonly(InteractionElementInterface $element): bool;
-
-	/**
-	 * Enables the simulation by returning a valid simulator class name.
-	 *
-	 * @return string|null
-	 */
-	public function getSimulationClassName(): ?string;
 }
