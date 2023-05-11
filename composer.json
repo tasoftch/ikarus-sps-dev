@@ -20,6 +20,7 @@
     "ikarus/sps-workflow": "dev-master",
     "ikarus/sps-relations": "dev-master",
     "ikarus/sps-simulation": "dev-master",
+    "ikarus/sps-statistics": "dev-master",
     "tasoft/php-pdo": "^0.8"
   },
   "require-dev": {
