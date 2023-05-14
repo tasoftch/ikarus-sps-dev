@@ -37,12 +37,17 @@ namespace Ikarus\SPS\Dev\UI;
 
 class Value extends Command
 {
+	const TYPE_ANY = 'Any';
+	const TYPE_NUMBER = 'Number';
+	const TYPE_STRING = 'String';
+	const TYPE_BOOLEAN = 'Boolean';
+	const TYPE_STATUS = 'Status';
 
 
 	/** @var string */
 	private $type;
 
-	public function __construct(string $name, $label = NULL, $type = 'string')
+	public function __construct(string $name, $label = NULL, $type = self::TYPE_STRING)
 	{
 		parent::__construct($name, $label);
 		$this->type = $type;
