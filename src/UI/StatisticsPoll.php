@@ -34,54 +34,22 @@
 
 namespace Ikarus\SPS\Dev\UI;
 
-
-interface UserInfoInterface
+class StatisticsPoll extends StatisticsPush
 {
-	/**
-	 * @return string
-	 */
-	public function getName(): string;
+	/** @var float */
+	private $interval;
+
+	public function __construct(string $name, float $interval, string $type = Value::TYPE_NUMBER)
+	{
+		parent::__construct($name, $type);
+		$this->interval = $interval;
+	}
 
 	/**
-	 * @return string
+	 * @return float
 	 */
-	public function getGroup(): ?string;
-
-	/**
-	 * @return string
-	 */
-	public function getDescription(): ?string;
-
-	/**
-	 * @return Command[]
-	 */
-	public function getCommands(): array;
-
-	/**
-	 * @return Status[]
-	 */
-	public function getStatus(): array;
-
-	/**
-	 * @return Value[]
-	 */
-	public function getValues(): array;
-
-	/**
-	 * @return PinoutDefinition[]|null
-	 */
-	public function getPinoutDefinitions(): ?array;
-
-	/**
-	 * @return StatisticsPush[]|null
-	 */
-	public function getStatistics(): ?array;
-
-	/**
-	 * @return PluginConstructionInterface|null
-	 */
-	public function getPluginConstruction(): ?PluginConstructionInterface;
-
-	public function isReadonly(InteractionElementInterface $element): bool;
-	public function isWriteonly(InteractionElementInterface $element): bool;
+	public function getInterval(): float
+	{
+		return $this->interval;
+	}
 }

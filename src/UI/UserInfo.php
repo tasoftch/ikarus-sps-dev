@@ -62,6 +62,8 @@ class UserInfo implements UserInfoInterface
 	/** @var Writeonly */
 	private $writeonly;
 
+	private $statistics = [];
+
 	/**
 	 * UserInfo constructor.
 	 * @param Name|Description|Command[]|Status[]
@@ -69,7 +71,9 @@ class UserInfo implements UserInfoInterface
 	public function __construct(...$items)
 	{
 		foreach($items as $item) {
-			if($item instanceof Writeonly)
+			if($item instanceof StatisticsPush)
+				$this->statistics[] = $item;
+			elseif($item instanceof Writeonly)
 				$this->writeonly = $item;
 			elseif($item instanceof Readonly)
 				$this->readonly = $item;
@@ -168,5 +172,13 @@ class UserInfo implements UserInfoInterface
 		if($this->writeonly)
 			return in_array($element->getName(), $this->writeonly->getKeys()) || in_array(get_class($element), $this->writeonly->getKeys());
 		return false;
+	}
+
+	/**
+	 * @return array
+	 */
+	public function getStatistics(): array
+	{
+		return $this->statistics;
 	}
 }
